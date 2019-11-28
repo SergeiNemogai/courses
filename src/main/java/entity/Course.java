@@ -6,8 +6,8 @@ public class Course {
     private int ID;
     private String name;
     private Date createdAt;
-    private Date startDateTime;
-    private Date endDateTime;
+    private Date startDateTime; // time doesn't exist!
+    private Date endDateTime; // time doesn't exist!
     private String status;
 
     public Course(int ID, String name, Date createdAt, Date startDateTime, Date endDateTime, String status) {
