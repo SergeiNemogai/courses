@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersDAO implements DAO<Users> {
-    private List<Users> usersList = new ArrayList<>();
-
     @Override
     public void add(Users entity) {
         try {
@@ -30,12 +28,29 @@ public class UsersDAO implements DAO<Users> {
     }
 
     @Override
-    public Users getByID(Integer ID) {
-        return null;
+    public Users getByID(int ID) {
+        Users user = null;
+        try {
+            Connection connection = HikariCPDataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "select * from courses.users where id=?");
+            preparedStatement.setInt(1, ID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new Users(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
     public List<Users> getAll() {
+        List<Users> usersList = new ArrayList<>();
         try {
             Connection connection = HikariCPDataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
