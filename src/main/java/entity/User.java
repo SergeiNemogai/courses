@@ -1,12 +1,12 @@
 package entity;
 
-public class Users {
+public class User {
     private int ID;
     private String firstName;
     private String lastName;
     private String role;
 
-    public Users(int ID, String firstName, String lastName, String role) {
+    public User(int ID, String firstName, String lastName, String role) {
         this.ID = ID;
         this.firstName = firstName;
         this.lastName = lastName;

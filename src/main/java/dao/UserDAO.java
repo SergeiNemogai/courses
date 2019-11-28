@@ -1,7 +1,7 @@
 package dao;
 
 import datasource.HikariCPDataSource;
-import entity.Users;
+import entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersDAO implements DAO<Users> {
+public class UserDAO implements DAO<User> {
     @Override
-    public void add(Users entity) {
+    public void add(User entity) {
         try {
             Connection connection = HikariCPDataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -28,8 +28,8 @@ public class UsersDAO implements DAO<Users> {
     }
 
     @Override
-    public Users getByID(int ID) {
-        Users user = null;
+    public User getByID(int ID) {
+        User user = null;
         try {
             Connection connection = HikariCPDataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -37,7 +37,7 @@ public class UsersDAO implements DAO<Users> {
             preparedStatement.setInt(1, ID);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                user = new Users(resultSet.getInt(1),
+                user = new User(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4));
@@ -49,15 +49,15 @@ public class UsersDAO implements DAO<Users> {
     }
 
     @Override
-    public List<Users> getAll() {
-        List<Users> usersList = new ArrayList<>();
+    public List<User> getAll() {
+        List<User> usersList = new ArrayList<>();
         try {
             Connection connection = HikariCPDataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "select * from courses.users");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                usersList.add(new Users(resultSet.getInt(1),
+                usersList.add(new User(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4)));
@@ -69,7 +69,7 @@ public class UsersDAO implements DAO<Users> {
     }
 
     @Override
-    public void edit(Users entity) {
+    public void edit(User entity) {
         try {
             Connection connection = HikariCPDataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -85,7 +85,7 @@ public class UsersDAO implements DAO<Users> {
     }
 
     @Override
-    public void remove(Users entity) {
+    public void remove(User entity) {
         try {
             Connection connection = HikariCPDataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("delete from courses.users where id=?");
