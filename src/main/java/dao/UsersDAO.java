@@ -70,7 +70,18 @@ public class UsersDAO implements DAO<Users> {
 
     @Override
     public void edit(Users entity) {
-        // nothing to edit
+        try {
+            Connection connection = HikariCPDataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "update courses.users set fname=?, lname=?, role=? where id=?");
+            preparedStatement.setInt(4, entity.getID());
+            preparedStatement.setString(1, entity.getFirstName());
+            preparedStatement.setString(2, entity.getLastName());
+            preparedStatement.setString(3, entity.getRole());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
