@@ -88,7 +88,8 @@ public class UserDAO implements DAO<User> {
     public void remove(User entity) {
         try {
             Connection connection = HikariCPDataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from courses.users where id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "delete from courses.users where id=?");
             preparedStatement.setInt(1, entity.getID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
