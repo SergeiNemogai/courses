@@ -1,7 +1,6 @@
 package dao;
 
 import datasource.HikariCPDataSource;
-import entity.CreatedCourse;
 import entity.Role;
 
 import java.sql.Connection;
