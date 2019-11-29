@@ -1,16 +1,17 @@
 package entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Course {
     private int ID;
     private String name;
     private Date createdAt;
-    private Date startDateTime; // time doesn't exist!
-    private Date endDateTime; // time doesn't exist!
+    private Timestamp startDateTime; // time doesn't exist!
+    private Timestamp endDateTime; // time doesn't exist!
     private String status;
 
-    public Course(int ID, String name, Date createdAt, Date startDateTime, Date endDateTime, String status) {
+    public Course(int ID, String name, Date createdAt, Timestamp startDateTime, Timestamp endDateTime, String status) {
         this.ID = ID;
         this.name = name;
         this.createdAt = createdAt;
@@ -43,19 +44,19 @@ public class Course {
         this.createdAt = createdAt;
     }
 
-    public Date getStartDateTime() {
+    public Timestamp getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(Date startDateTime) {
+    public void setStartDateTime(Timestamp startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public Date getEndDateTime() {
+    public Timestamp getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(Date endDateTime) {
+    public void setEndDateTime(Timestamp endDateTime) {
         this.endDateTime = endDateTime;
     }
 

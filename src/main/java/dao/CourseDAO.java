@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +22,8 @@ public class CourseDAO implements DAO<Course> {
             preparedStatement.setInt(1, entity.getID());
             preparedStatement.setString(2, entity.getName());
             preparedStatement.setDate(3, entity.getCreatedAt());
-            preparedStatement.setDate(4, entity.getStartDateTime());
-            preparedStatement.setDate(5, entity.getEndDateTime());
+            preparedStatement.setTimestamp(4, entity.getStartDateTime());
+            preparedStatement.setTimestamp(5, entity.getEndDateTime());
             preparedStatement.setString(6, entity.getStatus());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -42,8 +44,8 @@ public class CourseDAO implements DAO<Course> {
                 course = new Course(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getDate(3),
-                        resultSet.getDate(4),
-                        resultSet.getDate(5),
+                        resultSet.getTimestamp(4),
+                        resultSet.getTimestamp(5),
                         resultSet.getString(6));
             }
         } catch (SQLException e) {
@@ -64,8 +66,8 @@ public class CourseDAO implements DAO<Course> {
                 courses.add(new Course(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getDate(3),
-                        resultSet.getDate(4),
-                        resultSet.getDate(5),
+                        resultSet.getTimestamp(4),
+                        resultSet.getTimestamp(5),
                         resultSet.getString(6)));
             }
         } catch (SQLException e) {
@@ -85,8 +87,8 @@ public class CourseDAO implements DAO<Course> {
             preparedStatement.setInt(6, entity.getID());
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setDate(2, entity.getCreatedAt());
-            preparedStatement.setDate(3, entity.getStartDateTime());
-            preparedStatement.setDate(4, entity.getEndDateTime());
+            preparedStatement.setTimestamp(3, entity.getStartDateTime());
+            preparedStatement.setTimestamp(4, entity.getEndDateTime());
             preparedStatement.setString(5, entity.getStatus());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
