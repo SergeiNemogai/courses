@@ -32,7 +32,6 @@ public class UserService {
     }
 
     public static void run() {
-        UserService userService = new UserService();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         User user;
         System.out.println("Use next commands to work with table:\n" +
