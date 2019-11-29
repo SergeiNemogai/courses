@@ -3,7 +3,6 @@ package service;
 import dao.UserDAO;
 import entity.User;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
