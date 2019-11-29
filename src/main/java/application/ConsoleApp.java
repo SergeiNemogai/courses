@@ -38,7 +38,8 @@ public class ConsoleApp {
                     default:
                         System.out.println("Incorrect input! Try again");
                 }
-                System.out.println("courses  created_courses  roles  statuses  study  users");
+                System.out.println("Choose table you want to work with or enter 'exit' command:\n" +
+                        "courses  created_courses  roles  statuses  study  users");
                 choice = bufferedReader.readLine();
             }
         } catch (IOException e) {

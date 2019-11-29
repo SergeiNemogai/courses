@@ -34,18 +34,50 @@ public class UserService {
     public static void run() {
         UserService userService = new UserService();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        User user;
         System.out.println("Use next commands to work with table:\n" +
                 "add  getByID  getAll  edit  remove");
         try {
             String choice = bufferedReader.readLine();
+            String userInput;
+            String[] data;
             switch (choice) {
                 case "add":
                     System.out.println("Enter: user_ID first_name last_name role");
-                    String input = bufferedReader.readLine();
-                    String[] data = input.split(" ");
-                    User user = new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
+                    userInput = bufferedReader.readLine();
+                    data = userInput.split(" ");
+                    user = new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
                     add(user);
                     System.out.println("User added successfully");
+                    break;
+                case "getByID":
+                    System.out.println("Enter user_id");
+                    userInput = bufferedReader.readLine();
+                    System.out.println(getByID(Integer.parseInt(userInput)));
+                    break;
+                case "getAll":
+                    System.out.println("List of the users:");
+                    for(User user1 : getAll()) {
+                        System.out.println(user1);
+                    }
+                    break;
+                case "edit":
+                    System.out.println("Enter next data to choose user needed to update:\n" +
+                            "user_ID first_name last_name role");
+                    userInput = bufferedReader.readLine();
+                    data = userInput.split(" ");
+                    user = new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
+                    edit(user);
+                    System.out.println("User edited successfully");
+                    break;
+                case "remove":
+                    System.out.println("Enter next data to choose user needed to delete:\n" +
+                            "user_ID first_name last_name role");
+                    userInput = bufferedReader.readLine();
+                    data = userInput.split(" ");
+                    user = new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
+                    remove(user);
+                    System.out.println("User deleted successfully");
                     break;
                 default:
                     System.out.println("non-specified command");
