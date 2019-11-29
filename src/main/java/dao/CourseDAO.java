@@ -106,4 +106,26 @@ public class CourseDAO implements DAO<Course> {
             e.printStackTrace();
         }
     }
+
+    public List<Course> getCoursesOnStudy() {
+        List<Course> courses = new ArrayList<>();
+        try {
+            Connection connection = HikariCPDataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "select * from courses.courses where status=?");
+            preparedStatement.setString(1,"on study");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                courses.add(new Course(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3),
+                        resultSet.getTimestamp(4),
+                        resultSet.getTimestamp(5),
+                        resultSet.getString(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
 }
