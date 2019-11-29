@@ -1,9 +1,6 @@
 package application;
 
-import service.CourseService;
-import service.CreatedCourseService;
-import service.StudyService;
-import service.UserService;
+import service.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,16 +33,16 @@ public class ConsoleApp {
                         UserService.run();
                         break;
                     case "q1":
-                        System.out.println("q1");
+                        RequestService.printCourseCreator();
                         break;
                     case "q2":
-                        System.out.println("q2");
+                        RequestService.printStudentsByCourse();
                         break;
                     case "q3":
-                        System.out.println("q3");
+                        RequestService.printCoursesOnStudy();
                         break;
                     case "q4":
-                        System.out.println("q4");
+                        RequestService.printStudentsByTeacherName();
                         break;
                     default:
                         System.out.println("Incorrect input! Try again");
