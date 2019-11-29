@@ -1,6 +1,8 @@
 package application;
 
+import entity.CreatedCourse;
 import service.CourseService;
+import service.CreatedCourseService;
 import service.UserService;
 
 import java.io.BufferedReader;
@@ -22,7 +24,8 @@ public class ConsoleApp {
                         CourseService.run();
                         break;
                     case "created_courses":
-                        System.out.println(2);
+                        System.out.println("Table 'created_courses' selected");
+                        CreatedCourseService.run();
                         break;
                     case "study":
                         System.out.println(3);
@@ -46,8 +49,8 @@ public class ConsoleApp {
                     default:
                         System.out.println("Incorrect input! Try again");
                 }
-                System.out.println("Choose table you want to work with or enter 'exit' command:\n" +
-                        "courses  created_courses  roles  statuses  study  users");
+                System.out.println("Choose table (query) you want to work with or enter 'exit' command:\n" +
+                        "courses  created_courses  study  users  q1  q2  q3  q4");
                 choice = bufferedReader.readLine();
             }
         } catch (IOException e) {
