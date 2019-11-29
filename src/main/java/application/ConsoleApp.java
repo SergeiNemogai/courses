@@ -1,8 +1,8 @@
 package application;
 
-import entity.CreatedCourse;
 import service.CourseService;
 import service.CreatedCourseService;
+import service.StudyService;
 import service.UserService;
 
 import java.io.BufferedReader;
@@ -28,7 +28,8 @@ public class ConsoleApp {
                         CreatedCourseService.run();
                         break;
                     case "study":
-                        System.out.println(3);
+                        System.out.println("Table 'study' selected");
+                        StudyService.run();
                         break;
                     case "users":
                         System.out.println("Table 'users' selected");
