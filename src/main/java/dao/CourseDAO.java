@@ -13,10 +13,9 @@ import java.util.List;
 public class CourseDAO implements DAO<Course> {
     @Override
     public void add(Course entity) {
-        try {
-            Connection connection = HikariCPDataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "insert into courses.courses values(?, ?, ?, ?, ?, ?)");
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "insert into courses.courses values(?, ?, ?, ?, ?, ?)")) {
             preparedStatement.setInt(1, entity.getID());
             preparedStatement.setString(2, entity.getName());
             preparedStatement.setDate(3, entity.getCreatedAt());
@@ -32,19 +31,19 @@ public class CourseDAO implements DAO<Course> {
     @Override
     public Course getByID(int ID) {
         Course course = null;
-        try {
-            Connection connection = HikariCPDataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "select * from courses.courses where id=?");
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "select * from courses.courses where id=?")) {
             preparedStatement.setInt(1, ID);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                course = new Course(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getDate(3),
-                        resultSet.getTimestamp(4),
-                        resultSet.getTimestamp(5),
-                        resultSet.getString(6));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    course = new Course(resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getDate(3),
+                            resultSet.getTimestamp(4),
+                            resultSet.getTimestamp(5),
+                            resultSet.getString(6));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,11 +54,10 @@ public class CourseDAO implements DAO<Course> {
     @Override
     public List<Course> getAll() {
         List<Course> courses = new ArrayList<>();
-        try {
-            Connection connection = HikariCPDataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "select * from courses.courses");
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "select * from courses.courses");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 courses.add(new Course(resultSet.getInt(1),
                         resultSet.getString(2),
@@ -76,12 +74,11 @@ public class CourseDAO implements DAO<Course> {
 
     @Override
     public void edit(Course entity) {
-        try {
-            Connection connection = HikariCPDataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "update courses.courses " +
-                            "set name=?, created_at=? ,start_datetime=?, end_datetime=?, status=? " +
-                            "where id=?");
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "update courses.courses " +
+                             "set name=?, created_at=? ,start_datetime=?, end_datetime=?, status=? " +
+                             "where id=?")) {
             preparedStatement.setInt(6, entity.getID());
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setDate(2, entity.getCreatedAt());
@@ -96,10 +93,9 @@ public class CourseDAO implements DAO<Course> {
 
     @Override
     public void remove(Course entity) {
-        try {
-            Connection connection = HikariCPDataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "delete from courses.courses where id=?");
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "delete from courses.courses where id=?")) {
             preparedStatement.setInt(1, entity.getID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -109,19 +105,19 @@ public class CourseDAO implements DAO<Course> {
 
     public List<Course> getCoursesOnStudy() {
         List<Course> courses = new ArrayList<>();
-        try {
-            Connection connection = HikariCPDataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "select * from courses.courses where status=?");
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "select * from courses.courses where status=?")) {
             preparedStatement.setString(1,"on study");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                courses.add(new Course(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getDate(3),
-                        resultSet.getTimestamp(4),
-                        resultSet.getTimestamp(5),
-                        resultSet.getString(6)));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    courses.add(new Course(resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getDate(3),
+                            resultSet.getTimestamp(4),
+                            resultSet.getTimestamp(5),
+                            resultSet.getString(6)));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
