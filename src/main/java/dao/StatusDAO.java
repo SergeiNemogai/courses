@@ -24,7 +24,7 @@ public class StatusDAO implements DAO<Status> {
     }
 
     @Override
-    public Status getByID(int ID) {
+    public Status getById(int id) {
         return null;
     }
 

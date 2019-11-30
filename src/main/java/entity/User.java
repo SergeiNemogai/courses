@@ -1,24 +1,24 @@
 package entity;
 
 public class User {
-    private int ID;
+    private int id;
     private String firstName;
     private String lastName;
     private String role;
 
-    public User(int ID, String firstName, String lastName, String role) {
-        this.ID = ID;
+    public User(int id, String firstName, String lastName, String role) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -48,7 +48,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "ID=" + ID +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role='" + role + '\'' +

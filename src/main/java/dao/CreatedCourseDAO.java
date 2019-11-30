@@ -16,8 +16,8 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.created_courses values(?, ?)")) {
-            preparedStatement.setInt(1, entity.getUserID());
-            preparedStatement.setInt(2, entity.getCourseID());
+            preparedStatement.setInt(1, entity.getUserId());
+            preparedStatement.setInt(2, entity.getCourseId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -25,12 +25,12 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
     }
 
     @Override
-    public CreatedCourse getByID(int ID) {
+    public CreatedCourse getById(int id) {
         CreatedCourse createdCourse = null;
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.created_courses where user_id=?")) {
-            preparedStatement.setInt(1, ID);
+            preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if(resultSet.next()) {
                     createdCourse = new CreatedCourse(resultSet.getInt(1),
@@ -66,10 +66,10 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.created_courses set user_id=?, course_id=? where user_id=? and course_id=?")) {
-            preparedStatement.setInt(1, entity.getUserID());
-            preparedStatement.setInt(2, entity.getCourseID());
-            preparedStatement.setInt(3, entity.getUserID());
-            preparedStatement.setInt(4, entity.getCourseID());
+            preparedStatement.setInt(1, entity.getUserId());
+            preparedStatement.setInt(2, entity.getCourseId());
+            preparedStatement.setInt(3, entity.getUserId());
+            preparedStatement.setInt(4, entity.getCourseId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,8 +81,8 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.created_courses where user_id=? and course_id=?")) {
-            preparedStatement.setInt(1, entity.getUserID());
-            preparedStatement.setInt(2, entity.getCourseID());
+            preparedStatement.setInt(1, entity.getUserId());
+            preparedStatement.setInt(2, entity.getCourseId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -16,9 +16,9 @@ public class StudyDAO implements DAO<Study> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.study values(?, ?, ?)")) {
-            preparedStatement.setInt(1, entity.getID());
-            preparedStatement.setInt(2, entity.getCourseID());
-            preparedStatement.setInt(3, entity.getUserID());
+            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setInt(2, entity.getCourseId());
+            preparedStatement.setInt(3, entity.getUserId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,12 +26,12 @@ public class StudyDAO implements DAO<Study> {
     }
 
     @Override
-    public Study getByID(int ID) {
+    public Study getById(int id) {
         Study study = null;
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.study where id=?")) {
-            preparedStatement.setInt(1, ID);
+            preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if(resultSet.next()) {
                     study = new Study(resultSet.getInt(1),
@@ -69,9 +69,9 @@ public class StudyDAO implements DAO<Study> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.study set user_id=?, course_id=? where id=?")) {
-            preparedStatement.setInt(1, entity.getUserID());
-            preparedStatement.setInt(2, entity.getCourseID());
-            preparedStatement.setInt(3, entity.getID());
+            preparedStatement.setInt(1, entity.getUserId());
+            preparedStatement.setInt(2, entity.getCourseId());
+            preparedStatement.setInt(3, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class StudyDAO implements DAO<Study> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.study where id=?")) {
-            preparedStatement.setInt(1, entity.getID());
+            preparedStatement.setInt(1, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

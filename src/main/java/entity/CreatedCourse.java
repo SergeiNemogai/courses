@@ -1,35 +1,35 @@
 package entity;
 
 public class CreatedCourse {
-    private int userID;
-    private int courseID;
+    private int userId;
+    private int courseId;
 
-    public CreatedCourse(int userID, int courseID) {
-        this.userID = userID;
-        this.courseID = courseID;
+    public CreatedCourse(int userId, int courseId) {
+        this.userId = userId;
+        this.courseId = courseId;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getCourseID() {
-        return courseID;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     @Override
     public String toString() {
         return "CreatedCourse{" +
-                "userID=" + userID +
-                ", courseID=" + courseID +
+                "userId=" + userId +
+                ", courseId=" + courseId +
                 '}';
     }
 }

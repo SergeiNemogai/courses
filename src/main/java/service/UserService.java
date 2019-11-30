@@ -15,8 +15,8 @@ public class UserService {
         userDAO.add(entity);
     }
 
-    private static User getByID(int ID) {
-        return userDAO.getByID(ID);
+    private static User getById(int id) {
+        return userDAO.getById(id);
     }
 
     private static List<User> getAll() {
@@ -52,7 +52,7 @@ public class UserService {
                 case "getByID":
                     System.out.println("Enter user_id");
                     userInput = bufferedReader.readLine();
-                    System.out.println(getByID(Integer.parseInt(userInput)));
+                    System.out.println(getById(Integer.parseInt(userInput)));
                     break;
                 case "getAll":
                     System.out.println("List of the users:");

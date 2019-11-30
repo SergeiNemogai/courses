@@ -15,8 +15,8 @@ public class CreatedCourseService {
         createdCourseDAO.add(entity);
     }
 
-    private static CreatedCourse getByID(int ID) {
-        return createdCourseDAO.getByID(ID);
+    private static CreatedCourse getById(int id) {
+        return createdCourseDAO.getById(id);
     }
 
     private static List<CreatedCourse> getAll() {
@@ -53,7 +53,7 @@ public class CreatedCourseService {
                 case "getByID":
                     System.out.println("Enter user_id");
                     userInput = bufferedReader.readLine();
-                    System.out.println(getByID(Integer.parseInt(userInput)));
+                    System.out.println(getById(Integer.parseInt(userInput)));
                     break;
                 case "getAll":
                     System.out.println("List of the created_courses:");

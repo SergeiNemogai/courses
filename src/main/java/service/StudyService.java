@@ -15,8 +15,8 @@ public class StudyService {
         studyDAO.add(entity);
     }
 
-    private static Study getByID(int ID) {
-        return studyDAO.getByID(ID);
+    private static Study getById(int id) {
+        return studyDAO.getById(id);
     }
 
     private static List<Study> getAll() {
@@ -54,7 +54,7 @@ public class StudyService {
                 case "getByID":
                     System.out.println("Enter id:");
                     userInput = bufferedReader.readLine();
-                    System.out.println(getByID(Integer.parseInt(userInput)));
+                    System.out.println(getById(Integer.parseInt(userInput)));
                     break;
                 case "getAll":
                     System.out.println("List of the student_courses:");

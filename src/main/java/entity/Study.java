@@ -1,46 +1,46 @@
 package entity;
 
 public class Study {
-    private int ID;
-    private int courseID;
-    private int userID;
+    private int id;
+    private int courseId;
+    private int userId;
 
-    public Study(int ID, int courseID, int userID) {
-        this.ID = ID;
-        this.courseID = courseID;
-        this.userID = userID;
+    public Study(int id, int courseId, int userId) {
+        this.id = id;
+        this.courseId = courseId;
+        this.userId = userId;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getCourseID() {
-        return courseID;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Study{" +
-                "ID=" + ID +
-                ", courseID=" + courseID +
-                ", userID=" + userID +
+                "id=" + id +
+                ", courseId=" + courseId +
+                ", userId=" + userId +
                 '}';
     }
 }

@@ -24,7 +24,7 @@ public class RoleDAO implements DAO<Role> {
     }
 
     @Override
-    public Role getByID(int ID) {
+    public Role getById(int id) {
         return null;
     }
 

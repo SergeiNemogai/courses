@@ -16,7 +16,7 @@ public class UserDAO implements DAO<User> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.users values(?, ?, ?, ?)")) {
-            preparedStatement.setInt(1, entity.getID());
+            preparedStatement.setInt(1, entity.getId());
             preparedStatement.setString(2, entity.getFirstName());
             preparedStatement.setString(3, entity.getLastName());
             preparedStatement.setString(4, entity.getRole());
@@ -27,12 +27,12 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public User getByID(int ID) {
+    public User getById(int id) {
         User user = null;
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.users where id=?")) {
-            preparedStatement.setInt(1, ID);
+            preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new User(resultSet.getInt(1),
@@ -72,7 +72,7 @@ public class UserDAO implements DAO<User> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.users set fname=?, lname=?, role=? where id=?")) {
-            preparedStatement.setInt(4, entity.getID());
+            preparedStatement.setInt(4, entity.getId());
             preparedStatement.setString(1, entity.getFirstName());
             preparedStatement.setString(2, entity.getLastName());
             preparedStatement.setString(3, entity.getRole());
@@ -87,7 +87,7 @@ public class UserDAO implements DAO<User> {
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.users where id=?")) {
-            preparedStatement.setInt(1, entity.getID());
+            preparedStatement.setInt(1, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

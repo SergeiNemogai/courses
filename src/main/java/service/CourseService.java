@@ -17,8 +17,8 @@ public class CourseService {
         courseDAO.add(entity);
     }
 
-    private static Course getByID(int ID) {
-        return courseDAO.getByID(ID);
+    private static Course getById(int id) {
+        return courseDAO.getById(id);
     }
 
     private static List<Course> getAll() {
@@ -59,7 +59,7 @@ public class CourseService {
                 case "getByID":
                     System.out.println("Enter course_id");
                     userInput = bufferedReader.readLine();
-                    System.out.println(getByID(Integer.parseInt(userInput)));
+                    System.out.println(getById(Integer.parseInt(userInput)));
                     break;
                 case "getAll":
                     System.out.println("List of the courses:");
