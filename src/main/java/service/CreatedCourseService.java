@@ -1,6 +1,7 @@
 package service;
 
 import dao.CreatedCourseDAO;
+import dao.DAOFactory;
 import entity.CreatedCourse;
 
 import java.io.BufferedReader;
@@ -9,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 public class CreatedCourseService {
-    private static CreatedCourseDAO createdCourseDAO = new CreatedCourseDAO();
+    private static CreatedCourseDAO createdCourseDAO = DAOFactory.getCreatedCourseDAO();
 
     private static void add(CreatedCourse entity) {
         createdCourseDAO.add(entity);

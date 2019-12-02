@@ -1,5 +1,6 @@
 package service;
 
+import dao.DAOFactory;
 import dao.UserDAO;
 import entity.User;
 
@@ -9,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 public class UserService {
-    private static UserDAO userDAO = new UserDAO();
+    private static UserDAO userDAO = DAOFactory.getUserDAO();
 
     private static void add(User entity) {
         userDAO.add(entity);

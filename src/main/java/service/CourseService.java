@@ -1,6 +1,7 @@
 package service;
 
 import dao.CourseDAO;
+import dao.DAOFactory;
 import entity.Course;
 
 import java.io.BufferedReader;
@@ -11,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class CourseService {
-    private static CourseDAO courseDAO = new CourseDAO();
+    private static CourseDAO courseDAO = DAOFactory.getCourseDAO();
 
     private static void add(Course entity) {
         courseDAO.add(entity);

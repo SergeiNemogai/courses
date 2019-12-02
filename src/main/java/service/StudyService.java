@@ -1,5 +1,6 @@
 package service;
 
+import dao.DAOFactory;
 import dao.StudyDAO;
 import entity.Study;
 
@@ -9,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 public class StudyService {
-    private static StudyDAO studyDAO = new StudyDAO();
+    private static StudyDAO studyDAO = DAOFactory.getStudyDAO();
 
     private static void add(Study entity) {
         studyDAO.add(entity);
