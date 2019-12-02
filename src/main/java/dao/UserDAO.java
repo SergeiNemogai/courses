@@ -35,10 +35,12 @@ public class UserDAO implements DAO<User> {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4));
+                    user = User.builder()
+                            .id(resultSet.getInt(1))
+                            .firstName(resultSet.getString(2))
+                            .lastName(resultSet.getString(3))
+                            .role(resultSet.getString(4))
+                            .build();
                 }
             }
         } catch (SQLException e) {
@@ -55,10 +57,12 @@ public class UserDAO implements DAO<User> {
                      "select * from courses.users")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    usersList.add(new User(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4)));
+                    usersList.add(User.builder()
+                            .id(resultSet.getInt(1))
+                            .firstName(resultSet.getString(2))
+                            .lastName(resultSet.getString(3))
+                            .role(resultSet.getString(4))
+                            .build());
                 }
             }
         } catch (SQLException e) {
@@ -106,10 +110,12 @@ public class UserDAO implements DAO<User> {
             preparedStatement.setString(1, courseName);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4));
+                    user = User.builder()
+                            .id(resultSet.getInt(1))
+                            .firstName(resultSet.getString(2))
+                            .lastName(resultSet.getString(3))
+                            .role(resultSet.getString(4))
+                            .build();
                 }
             }
         } catch (SQLException e) {
@@ -159,10 +165,12 @@ public class UserDAO implements DAO<User> {
         preparedStatement.setString(1, name);
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                user = new User(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4));
+                user = User.builder()
+                        .id(resultSet.getInt(1))
+                        .firstName(resultSet.getString(2))
+                        .lastName(resultSet.getString(3))
+                        .role(resultSet.getString(4))
+                        .build();
                 users.add(user);
             }
         }
