@@ -33,8 +33,10 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if(resultSet.next()) {
-                    createdCourse = new CreatedCourse(resultSet.getInt(1),
-                            resultSet.getInt(2));
+                    createdCourse = CreatedCourse.builder()
+                            .userId(resultSet.getInt(1))
+                            .courseId(resultSet.getInt(2))
+                            .build();
                 }
             }
         } catch (SQLException e) {
@@ -51,8 +53,10 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
                      "select * from courses.created_courses")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    createdCourses.add(new CreatedCourse(resultSet.getInt(1),
-                            resultSet.getInt(2)));
+                    createdCourses.add(CreatedCourse.builder()
+                            .userId(resultSet.getInt(1))
+                            .courseId(resultSet.getInt(2))
+                            .build());
                 }
             }
         } catch (SQLException e) {
