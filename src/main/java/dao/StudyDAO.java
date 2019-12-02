@@ -34,9 +34,11 @@ public class StudyDAO implements DAO<Study> {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if(resultSet.next()) {
-                    study = new Study(resultSet.getInt(1),
-                            resultSet.getInt(2),
-                            resultSet.getInt(3));
+                    study = Study.builder()
+                            .id(resultSet.getInt(1))
+                            .courseId(resultSet.getInt(2))
+                            .userId(resultSet.getInt(3))
+                            .build();
                 }
             }
         } catch (SQLException e) {
@@ -53,9 +55,11 @@ public class StudyDAO implements DAO<Study> {
                      "select * from courses.study")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    studies.add(new Study(resultSet.getInt(1),
-                            resultSet.getInt(2),
-                            resultSet.getInt(3)));
+                    studies.add(Study.builder()
+                            .id(resultSet.getInt(1))
+                            .courseId(resultSet.getInt(2))
+                            .userId(resultSet.getInt(3))
+                            .build());
                 }
             }
         } catch (SQLException e) {

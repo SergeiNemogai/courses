@@ -1,46 +1,16 @@
 package entity;
 
+import lombok.Builder;
+import lombok.NonNull;
+import lombok.Value;
+
+@Value
+@Builder(toBuilder = true)
 public class Study {
+    @NonNull
     private int id;
+    @NonNull
     private int courseId;
+    @NonNull
     private int userId;
-
-    public Study(int id, int courseId, int userId) {
-        this.id = id;
-        this.courseId = courseId;
-        this.userId = userId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "Study{" +
-                "id=" + id +
-                ", courseId=" + courseId +
-                ", userId=" + userId +
-                '}';
-    }
 }
