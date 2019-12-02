@@ -8,11 +8,11 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class User {
     @NonNull
-    private int id;
+    int id;
     @NonNull
-    private String firstName;
+    String firstName;
     @NonNull
-    private String lastName;
+    String lastName;
     @NonNull
-    private String role;
+    String role;
 }

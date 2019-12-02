@@ -8,7 +8,7 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class Role {
     @NonNull
-    private String role;
+    String role;
 
     @Override
     public String toString() {

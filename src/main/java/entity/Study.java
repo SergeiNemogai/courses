@@ -8,9 +8,9 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class Study {
     @NonNull
-    private int id;
+    int id;
     @NonNull
-    private int courseId;
+    int courseId;
     @NonNull
-    private int userId;
+    int userId;
 }

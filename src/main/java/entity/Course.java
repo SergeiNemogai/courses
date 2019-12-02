@@ -11,15 +11,15 @@ import java.sql.Timestamp;
 @Builder(toBuilder = true)
 public class Course {
     @NonNull
-    private int id;
+    int id;
     @NonNull
-    private String name;
+    String name;
     @NonNull
-    private Date createdAt;
+    Date createdAt;
     @NonNull
-    private Timestamp startDateTime;
+    Timestamp startDateTime;
     @NonNull
-    private Timestamp endDateTime;
+    Timestamp endDateTime;
     @NonNull
-    private String status;
+    String status;
 }
