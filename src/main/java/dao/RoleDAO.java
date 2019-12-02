@@ -36,7 +36,9 @@ public class RoleDAO implements DAO<Role> {
                      "select * from courses.roles")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    roles.add(new Role(resultSet.getString(1)));
+                    roles.add(Role.builder()
+                            .role(resultSet.getString(1))
+                            .build());
                 }
             }
         } catch (SQLException e) {
