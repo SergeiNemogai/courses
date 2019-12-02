@@ -1,82 +1,25 @@
 package entity;
 
+import lombok.Builder;
+import lombok.NonNull;
+import lombok.Value;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@Value
+@Builder(toBuilder = true)
 public class Course {
+    @NonNull
     private int id;
+    @NonNull
     private String name;
+    @NonNull
     private Date createdAt;
-    private Timestamp startDateTime; // time doesn't exist!
-    private Timestamp endDateTime; // time doesn't exist!
+    @NonNull
+    private Timestamp startDateTime;
+    @NonNull
+    private Timestamp endDateTime;
+    @NonNull
     private String status;
-
-    public Course(int id, String name, Date createdAt, Timestamp startDateTime, Timestamp endDateTime, String status) {
-        this.id = id;
-        this.name = name;
-        this.createdAt = createdAt;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.status = status;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getStartDateTime() {
-        return startDateTime;
-    }
-
-    public void setStartDateTime(Timestamp startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    public Timestamp getEndDateTime() {
-        return endDateTime;
-    }
-
-    public void setEndDateTime(Timestamp endDateTime) {
-        this.endDateTime = endDateTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                ", startDateTime=" + startDateTime +
-                ", endDateTime=" + endDateTime +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }
