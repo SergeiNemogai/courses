@@ -33,6 +33,13 @@ public class CourseService {
         courseDAO.remove(entity);
     }
 
+    public static void printCoursesOnStudy() {
+        System.out.println("Courses on study:");
+        for(Course course : courseDAO.getCoursesOnStudy()) {
+            System.out.println(course);
+        }
+    }
+
     public static void run() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         Course course;

@@ -33,16 +33,16 @@ public class ConsoleApp {
                         UserService.run();
                         break;
                     case "q1":
-                        RequestService.printCourseCreator();
+                        UserService.printCourseCreator();
                         break;
                     case "q2":
-                        RequestService.printStudentsByCourse();
+                        UserService.printStudentsByCourse();
                         break;
                     case "q3":
-                        RequestService.printCoursesOnStudy();
+                        CourseService.printCoursesOnStudy();
                         break;
                     case "q4":
-                        RequestService.printStudentsByTeacherName();
+                        UserService.printStudentsByTeacherName();
                         break;
                     default:
                         System.out.println("Incorrect input! Try again");

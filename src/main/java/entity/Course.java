@@ -71,7 +71,7 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "ID=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", createdAt=" + createdAt +
                 ", startDateTime=" + startDateTime +

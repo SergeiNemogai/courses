@@ -31,6 +31,46 @@ public class UserService {
         userDAO.remove(entity);
     }
 
+    public static void printCourseCreator() {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String userInput = ""; // default value of incorrect input case
+        System.out.println("Enter course name:");
+        try {
+            userInput = bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(userDAO.getCourseCreator(userInput));
+    }
+
+    public static void printStudentsByCourse() {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String userInput = ""; // default value of incorrect input case
+        System.out.println("Enter course name:");
+        try {
+            userInput = bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(User user : userDAO.getStudentsByCourse(userInput)) {
+            System.out.println(user);
+        }
+    }
+
+    public static void printStudentsByTeacherName() {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String userInput = ""; // default value of incorrect input case
+        System.out.println("Enter teacher name:");
+        try {
+            userInput = bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(User user : userDAO.getStudentsByTeacherName(userInput)) {
+            System.out.println(user);
+        }
+    }
+
     public static void run() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         User user;
