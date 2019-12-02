@@ -36,7 +36,9 @@ public class StatusDAO implements DAO<Status> {
                      "select * from courses.statuses")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    statuses.add(new Status(resultSet.getString(1)));
+                    statuses.add(Status.builder()
+                            .status(resultSet.getString(1))
+                            .build());
                 }
             }
         } catch (SQLException e) {
