@@ -10,11 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudyDAO implements DAO<Study> {
+public class StudyDAO implements DAOConnectionPassing<Study> {
     @Override
-    public void add(Study entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void add(Study entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.study values(?, ?, ?)")) {
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.setInt(2, entity.getCourseId());
@@ -69,9 +68,8 @@ public class StudyDAO implements DAO<Study> {
     }
 
     @Override
-    public void edit(Study entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void edit(Study entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.study set user_id=?, course_id=? where id=?")) {
             preparedStatement.setInt(1, entity.getUserId());
             preparedStatement.setInt(2, entity.getCourseId());
@@ -83,9 +81,8 @@ public class StudyDAO implements DAO<Study> {
     }
 
     @Override
-    public void remove(Study entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void remove(Study entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.study where id=?")) {
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.executeUpdate();

@@ -2,15 +2,46 @@ package service;
 
 import dao.CreatedCourseDAO;
 import dao.DAOFactory;
+import datasource.HikariCPDataSource;
 import entity.CreatedCourse;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CreatedCourseService {
-    private CreatedCourseDAO createdCourseDAO = DAOFactory.getCreatedCourseDAO();
+    private CreatedCourseDAO createdCourseDAO;
+    private Connection connection;
+
+    private void rollbackConnection(Connection connection) {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void add(CreatedCourse entity) {
-        createdCourseDAO.add(entity);
+        try {
+            connection = HikariCPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            createdCourseDAO = DAOFactory.getCreatedCourseDAO();
+            createdCourseDAO.add(entity, connection);
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackConnection(connection);
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
     }
 
     public CreatedCourse getById(int id) {
@@ -22,10 +53,32 @@ public class CreatedCourseService {
     }
 
     public void edit(CreatedCourse entity) {
-        createdCourseDAO.edit(entity);
+        try {
+            connection = HikariCPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            createdCourseDAO = DAOFactory.getCreatedCourseDAO();
+            createdCourseDAO.edit(entity, connection);
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackConnection(connection);
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
     }
 
     public void remove(CreatedCourse entity) {
-        createdCourseDAO.remove(entity);
+        try {
+            connection = HikariCPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            createdCourseDAO = DAOFactory.getCreatedCourseDAO();
+            createdCourseDAO.remove(entity, connection);
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackConnection(connection);
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
     }
 }

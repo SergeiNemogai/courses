@@ -10,11 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatedCourseDAO implements DAO<CreatedCourse> {
+public class CreatedCourseDAO implements DAOConnectionPassing<CreatedCourse> {
     @Override
-    public void add(CreatedCourse entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void add(CreatedCourse entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.created_courses values(?, ?)")) {
             preparedStatement.setInt(1, entity.getUserId());
             preparedStatement.setInt(2, entity.getCourseId());
@@ -66,9 +65,8 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
     }
 
     @Override
-    public void edit(CreatedCourse entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void edit(CreatedCourse entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.created_courses set user_id=?, course_id=? where user_id=? and course_id=?")) {
             preparedStatement.setInt(1, entity.getUserId());
             preparedStatement.setInt(2, entity.getCourseId());
@@ -81,9 +79,8 @@ public class CreatedCourseDAO implements DAO<CreatedCourse> {
     }
 
     @Override
-    public void remove(CreatedCourse entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void remove(CreatedCourse entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.created_courses where user_id=? and course_id=?")) {
             preparedStatement.setInt(1, entity.getUserId());
             preparedStatement.setInt(2, entity.getCourseId());
