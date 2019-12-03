@@ -11,14 +11,13 @@ public class ConsoleApp {
         System.out.println("Hello. Welcome to simple CRUD console app.\n" +
                 "Choose table (query) you want to work with or enter 'exit' command:\n" +
                 "courses  created_courses  study  users  q1  q2  q3  q4");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        try {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
             String choice = bufferedReader.readLine();
             while(!choice.equals("exit")) {
                 switch (choice) {
                     case "courses":
                         System.out.println("Table 'courses' selected");
-                        CourseService.run();
+                        CourseCommand.execute(bufferedReader);
                         break;
                     case "created_courses":
                         System.out.println("Table 'created_courses' selected");
@@ -39,7 +38,7 @@ public class ConsoleApp {
                         UserService.printStudentsByCourse();
                         break;
                     case "q3":
-                        CourseService.printCoursesOnStudy();
+                        CourseCommand.printCoursesOnStudy();
                         break;
                     case "q4":
                         UserService.printStudentsByTeacherName();

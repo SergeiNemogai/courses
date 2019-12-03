@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 @Value
 @Builder(toBuilder = true)
 public class Course {
-    @NonNull
     int id;
     @NonNull
     String name;
