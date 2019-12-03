@@ -21,7 +21,7 @@ public class ConsoleApp {
                         break;
                     case "created_courses":
                         System.out.println("Table 'created_courses' selected");
-                        CreatedCourseService.run();
+                        CreatedCourseCommand.execute(bufferedReader);
                         break;
                     case "study":
                         System.out.println("Table 'study' selected");
