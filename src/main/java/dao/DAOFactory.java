@@ -1,7 +1,5 @@
 package dao;
 
-import entity.Study;
-
 public class DAOFactory {
     private static CourseDAO courseDAO;
     private static CreatedCourseDAO createdCourseDAO;
@@ -11,7 +9,7 @@ public class DAOFactory {
     private static UserDAO userDAO;
 
     public static CourseDAO getCourseDAO() {
-        if(courseDAO == null) {
+        if (courseDAO == null) {
             courseDAO = new CourseDAO();
         }
         return courseDAO;

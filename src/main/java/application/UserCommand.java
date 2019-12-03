@@ -1,13 +1,14 @@
 package application;
 
 import entity.User;
+import service.ServiceFactory;
 import service.UserService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 class UserCommand {
-    private static UserService userService = new UserService();
+    private static UserService userService = ServiceFactory.getUserService();
 
     static void printCourseCreator(BufferedReader bufferedReader) {
         String userInput = ""; // default value of incorrect input case

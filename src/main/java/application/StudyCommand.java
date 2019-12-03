@@ -1,13 +1,14 @@
 package application;
 
 import entity.Study;
+import service.ServiceFactory;
 import service.StudyService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 class StudyCommand {
-    private static StudyService studyService = new StudyService();
+    private static StudyService studyService = ServiceFactory.getStudyService();
 
     static void execute(BufferedReader bufferedReader) {
         Study study;

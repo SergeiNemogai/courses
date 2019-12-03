@@ -2,12 +2,13 @@ package application;
 
 import entity.CreatedCourse;
 import service.CreatedCourseService;
+import service.ServiceFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 class CreatedCourseCommand {
-    private static CreatedCourseService createdCourseService = new CreatedCourseService();
+    private static CreatedCourseService createdCourseService = ServiceFactory.getCreatedCourseService();
 
     static void execute(BufferedReader bufferedReader) {
         CreatedCourse createdCourse;

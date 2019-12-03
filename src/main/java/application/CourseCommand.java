@@ -2,6 +2,7 @@ package application;
 
 import entity.Course;
 import service.CourseService;
+import service.ServiceFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 class CourseCommand {
-    private static CourseService courseService = new CourseService();
+    private static CourseService courseService = ServiceFactory.getCourseService();
 
     static void printCoursesOnStudy() {
         System.out.println("Courses on study:");
