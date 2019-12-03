@@ -1,5 +1,6 @@
 package dao;
 
+import datasource.HikariCPDataSource;
 import entity.Course;
 
 import java.sql.Connection;
@@ -27,9 +28,10 @@ public class CourseDAO implements DAOConnectionPassing<Course> {
     }
 
     @Override
-    public Course getById(int id, Connection connection) {
+    public Course getById(int id) {
         Course course = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.courses where id=?")) {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -51,9 +53,10 @@ public class CourseDAO implements DAOConnectionPassing<Course> {
     }
 
     @Override
-    public List<Course> getAll(Connection connection) {
+    public List<Course> getAll() {
         List<Course> courses = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.courses");
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -101,9 +104,10 @@ public class CourseDAO implements DAOConnectionPassing<Course> {
         }
     }
 
-    public List<Course> getCoursesOnStudy(Connection connection) {
+    public List<Course> getCoursesOnStudy() {
         List<Course> courses = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
+        try (Connection connection = HikariCPDataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.courses where status=?")) {
             preparedStatement.setString(1,"on study");
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

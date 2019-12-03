@@ -45,29 +45,11 @@ public class CourseService {
     }
 
     public Course getById(int id) {
-        try {
-            connection = HikariCPDataSource.getConnection();
-            courseDAO = DAOFactory.getCourseDAO();
-            return courseDAO.getById(id, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection);
-        }
-        return null;
+        return courseDAO.getById(id);
     }
 
     public List<Course> getAll() {
-        try {
-            connection = HikariCPDataSource.getConnection();
-            courseDAO = DAOFactory.getCourseDAO();
-            return courseDAO.getAll(connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection);
-        }
-        return null;
+        return courseDAO.getAll();
     }
 
     public void edit(Course entity) {
@@ -101,15 +83,6 @@ public class CourseService {
     }
 
     public List<Course> getCoursesOnStudy() {
-        try {
-            connection = HikariCPDataSource.getConnection();
-            courseDAO = DAOFactory.getCourseDAO();
-            return courseDAO.getCoursesOnStudy(connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection);
-        }
-        return null;
+        return courseDAO.getCoursesOnStudy();
     }
 }

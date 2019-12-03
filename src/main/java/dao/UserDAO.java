@@ -10,11 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO implements DAO<User> {
+public class UserDAO implements DAOConnectionPassing<User> {
     @Override
-    public void add(User entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void add(User entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.users values(?, ?, ?, ?)")) {
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.setString(2, entity.getFirstName());
@@ -72,9 +71,8 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public void edit(User entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void edit(User entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.users set fname=?, lname=?, role=? where id=?")) {
             preparedStatement.setInt(4, entity.getId());
             preparedStatement.setString(1, entity.getFirstName());
@@ -87,9 +85,8 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public void remove(User entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void remove(User entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.users where id=?")) {
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.executeUpdate();

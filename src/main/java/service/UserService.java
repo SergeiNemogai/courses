@@ -2,15 +2,46 @@ package service;
 
 import dao.DAOFactory;
 import dao.UserDAO;
+import datasource.HikariCPDataSource;
 import entity.User;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
-    private UserDAO userDAO = DAOFactory.getUserDAO();
+    private UserDAO userDAO;
+    private Connection connection;
+
+    private void rollbackConnection(Connection connection) {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void add(User entity) {
-        userDAO.add(entity);
+        try {
+            connection = HikariCPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            userDAO = DAOFactory.getUserDAO();
+            userDAO.add(entity, connection);
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackConnection(connection);
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
     }
 
     public User getById(int id) {
@@ -22,11 +53,33 @@ public class UserService {
     }
 
     public void edit(User entity) {
-        userDAO.edit(entity);
+        try {
+            connection = HikariCPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            userDAO = DAOFactory.getUserDAO();
+            userDAO.edit(entity, connection);
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackConnection(connection);
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
     }
 
     public void remove(User entity) {
-        userDAO.remove(entity);
+        try {
+            connection = HikariCPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            userDAO = DAOFactory.getUserDAO();
+            userDAO.remove(entity, connection);
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackConnection(connection);
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection);
+        }
     }
 
     public User getCourseCreator(String courseName) {
