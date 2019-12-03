@@ -1,6 +1,5 @@
 package dao;
 
-import datasource.HikariCPDataSource;
 import entity.Course;
 
 import java.sql.Connection;
@@ -10,11 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseDAO implements DAO<Course> {
+public class CourseDAO implements DAOConnectionPassing<Course> {
     @Override
-    public void add(Course entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void add(Course entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.courses values(?, ?, ?, ?, ?, ?)")) {
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.setString(2, entity.getName());
@@ -29,10 +27,9 @@ public class CourseDAO implements DAO<Course> {
     }
 
     @Override
-    public Course getById(int id) {
+    public Course getById(int id, Connection connection) {
         Course course = null;
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.courses where id=?")) {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -54,10 +51,9 @@ public class CourseDAO implements DAO<Course> {
     }
 
     @Override
-    public List<Course> getAll() {
+    public List<Course> getAll(Connection connection) {
         List<Course> courses = new ArrayList<>();
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.courses");
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -77,9 +73,8 @@ public class CourseDAO implements DAO<Course> {
     }
 
     @Override
-    public void edit(Course entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void edit(Course entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.courses " +
                              "set name=?, created_at=? ,start_datetime=?, end_datetime=?, status=? " +
                              "where id=?")) {
@@ -96,9 +91,8 @@ public class CourseDAO implements DAO<Course> {
     }
 
     @Override
-    public void remove(Course entity) {
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+    public void remove(Course entity, Connection connection) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.courses where id=?")) {
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.executeUpdate();
@@ -107,10 +101,9 @@ public class CourseDAO implements DAO<Course> {
         }
     }
 
-    public List<Course> getCoursesOnStudy() {
+    public List<Course> getCoursesOnStudy(Connection connection) {
         List<Course> courses = new ArrayList<>();
-        try (Connection connection = HikariCPDataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.courses where status=?")) {
             preparedStatement.setString(1,"on study");
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
