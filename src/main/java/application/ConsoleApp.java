@@ -29,19 +29,19 @@ public class ConsoleApp {
                         break;
                     case "users":
                         System.out.println("Table 'users' selected");
-                        UserService.run();
+                        UserCommand.execute(bufferedReader);
                         break;
                     case "q1":
-                        UserService.printCourseCreator();
+                        UserCommand.printCourseCreator(bufferedReader);
                         break;
                     case "q2":
-                        UserService.printStudentsByCourse();
+                        UserCommand.printStudentsByCourse(bufferedReader);
                         break;
                     case "q3":
                         CourseCommand.printCoursesOnStudy();
                         break;
                     case "q4":
-                        UserService.printStudentsByTeacherName();
+                        UserCommand.printStudentsByTeacherName(bufferedReader);
                         break;
                     default:
                         System.out.println("Incorrect input! Try again");
