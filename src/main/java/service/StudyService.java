@@ -46,9 +46,11 @@ public class StudyService {
                     System.out.println("Enter: id course_id user_id");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    study = new Study(Integer.parseInt(data[0]),
-                            Integer.parseInt(data[1]),
-                            Integer.parseInt(data[2]));
+                    study = Study.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .courseId(Integer.parseInt(data[1]))
+                            .userId(Integer.parseInt(data[2]))
+                            .build();
                     add(study);
                     System.out.println("Study added successfully");
                     break;
@@ -68,9 +70,11 @@ public class StudyService {
                             "id course_id user_id");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    study = new Study(Integer.parseInt(data[0]),
-                            Integer.parseInt(data[1]),
-                            Integer.parseInt(data[2]));
+                    study = Study.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .courseId(Integer.parseInt(data[1]))
+                            .userId(Integer.parseInt(data[2]))
+                            .build();
                     edit(study);
                     System.out.println("Created course edited successfully");
                     break;
@@ -79,9 +83,11 @@ public class StudyService {
                             "user_id course_id");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    study = new Study(Integer.parseInt(data[0]),
-                            Integer.parseInt(data[1]),
-                            Integer.parseInt(data[2]));
+                    study = Study.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .courseId(Integer.parseInt(data[1]))
+                            .userId(Integer.parseInt(data[2]))
+                            .build();
                     remove(study);
                     System.out.println("Studied course deleted successfully");
                     break;

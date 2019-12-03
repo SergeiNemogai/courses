@@ -86,7 +86,11 @@ public class UserService {
                     System.out.println("Enter: user_ID first_name last_name role");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    user = new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
+                    user = User.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .firstName(data[1])
+                            .lastName(data[2])
+                            .role(data[3]).build();
                     add(user);
                     System.out.println("User added successfully");
                     break;
@@ -106,7 +110,11 @@ public class UserService {
                             "user_ID first_name last_name role");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    user = new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
+                    user = User.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .firstName(data[1])
+                            .lastName(data[2])
+                            .role(data[3]).build();
                     edit(user);
                     System.out.println("User edited successfully");
                     break;
@@ -115,7 +123,11 @@ public class UserService {
                             "user_ID first_name last_name role");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    user = new User(Integer.parseInt(data[0]), data[1], data[2], data[3]);
+                    user = User.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .firstName(data[1])
+                            .lastName(data[2])
+                            .role(data[3]).build();
                     remove(user);
                     System.out.println("User deleted successfully");
                     break;

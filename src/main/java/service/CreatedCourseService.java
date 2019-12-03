@@ -46,8 +46,10 @@ public class CreatedCourseService {
                     System.out.println("Enter: user_id course_id");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    createdCourse = new CreatedCourse(Integer.parseInt(data[0]),
-                            Integer.parseInt(data[1]));
+                    createdCourse = CreatedCourse.builder()
+                            .userId(Integer.parseInt(data[0]))
+                            .courseId(Integer.parseInt(data[1]))
+                            .build();
                     add(createdCourse);
                     System.out.println("Created course added successfully");
                     break;
@@ -67,8 +69,10 @@ public class CreatedCourseService {
                             "user_id course_id");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    createdCourse = new CreatedCourse(Integer.parseInt(data[0]),
-                            Integer.parseInt(data[1]));
+                    createdCourse = CreatedCourse.builder()
+                            .userId(Integer.parseInt(data[0]))
+                            .courseId(Integer.parseInt(data[1]))
+                            .build();
                     edit(createdCourse);
                     System.out.println("Created course edited successfully");
                     break;
@@ -77,8 +81,10 @@ public class CreatedCourseService {
                             "user_id course_id");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    createdCourse = new CreatedCourse(Integer.parseInt(data[0]),
-                            Integer.parseInt(data[1]));
+                    createdCourse = CreatedCourse.builder()
+                            .userId(Integer.parseInt(data[0]))
+                            .courseId(Integer.parseInt(data[1]))
+                            .build();
                     remove(createdCourse);
                     System.out.println("Course deleted successfully");
                     break;

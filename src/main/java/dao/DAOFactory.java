@@ -1,5 +1,7 @@
 package dao;
 
+import entity.Study;
+
 public class DAOFactory {
     private static CourseDAO courseDAO;
     private static CreatedCourseDAO createdCourseDAO;
@@ -10,42 +12,42 @@ public class DAOFactory {
 
     public static CourseDAO getCourseDAO() {
         if(courseDAO == null) {
-            return new CourseDAO();
+            courseDAO = new CourseDAO();
         }
         return courseDAO;
     }
 
     public static CreatedCourseDAO getCreatedCourseDAO() {
         if (createdCourseDAO == null) {
-            return new CreatedCourseDAO();
+            createdCourseDAO = new CreatedCourseDAO();
         }
         return createdCourseDAO;
     }
 
     public static RoleDAO getRoleDAO() {
         if (roleDAO == null) {
-            return new RoleDAO();
+            roleDAO = new RoleDAO();
         }
         return roleDAO;
     }
 
     public static StatusDAO getStatusDAO() {
         if (statusDAO == null) {
-            return new StatusDAO();
+            statusDAO = new StatusDAO();
         }
         return statusDAO;
     }
 
     public static StudyDAO getStudyDAO() {
         if (studyDAO == null) {
-            return new StudyDAO();
+            studyDAO = new StudyDAO();
         }
         return studyDAO;
     }
 
     public static UserDAO getUserDAO() {
         if (userDAO == null) {
-            return new UserDAO();
+            userDAO = new UserDAO();
         }
         return userDAO;
     }

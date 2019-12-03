@@ -55,12 +55,14 @@ public class CourseService {
                     System.out.println("Enter: id name created_at start_at end_at status");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    course = new Course(Integer.parseInt(data[0]),
-                            data[1],
-                            Date.valueOf(data[2]),
-                            Timestamp.valueOf(data[3]),
-                            Timestamp.valueOf(data[4]),
-                            data[5]);
+                    course = Course.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .name(data[1])
+                            .createdAt(Date.valueOf(data[2]))
+                            .startDateTime(Timestamp.valueOf(data[3]))
+                            .endDateTime(Timestamp.valueOf(data[4]))
+                            .status(data[5])
+                            .build();
                     add(course);
                     System.out.println("Course added successfully");
                     break;
@@ -80,12 +82,14 @@ public class CourseService {
                             "id name created_at start_at end_at status");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    course = new Course(Integer.parseInt(data[0]),
-                            data[1],
-                            Date.valueOf(data[2]),
-                            Timestamp.valueOf(data[3]),
-                            Timestamp.valueOf(data[4]),
-                            data[5]);
+                    course = Course.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .name(data[1])
+                            .createdAt(Date.valueOf(data[2]))
+                            .startDateTime(Timestamp.valueOf(data[3]))
+                            .endDateTime(Timestamp.valueOf(data[4]))
+                            .status(data[5])
+                            .build();
                     edit(course);
                     System.out.println("Course edited successfully");
                     break;
@@ -94,12 +98,14 @@ public class CourseService {
                             "id name created_at start_at end_at status");
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
-                    course = new Course(Integer.parseInt(data[0]),
-                            data[1],
-                            Date.valueOf(data[2]),
-                            Timestamp.valueOf(data[3]),
-                            Timestamp.valueOf(data[4]),
-                            data[5]);
+                    course = Course.builder()
+                            .id(Integer.parseInt(data[0]))
+                            .name(data[1])
+                            .createdAt(Date.valueOf(data[2]))
+                            .startDateTime(Timestamp.valueOf(data[3]))
+                            .endDateTime(Timestamp.valueOf(data[4]))
+                            .status(data[5])
+                            .build();
                     remove(course);
                     System.out.println("Course deleted successfully");
                     break;
