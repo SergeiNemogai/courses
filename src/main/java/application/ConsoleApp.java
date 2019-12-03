@@ -25,7 +25,7 @@ public class ConsoleApp {
                         break;
                     case "study":
                         System.out.println("Table 'study' selected");
-                        StudyService.run();
+                        StudyCommand.execute(bufferedReader);
                         break;
                     case "users":
                         System.out.println("Table 'users' selected");
