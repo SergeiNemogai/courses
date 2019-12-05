@@ -1,11 +1,14 @@
 package entity;
 
 import lombok.Builder;
+import lombok.NonNull;
 import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
 public class CreatedCourse {
-    int userId;
-    int courseId;
+    @NonNull
+    Long userId;
+    @NonNull
+    Long courseId;
 }

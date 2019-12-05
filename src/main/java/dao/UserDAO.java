@@ -15,7 +15,7 @@ public class UserDAO implements DAOConnectionPassing<User> {
     public void add(User entity, Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "insert into courses.users values(?, ?, ?, ?)")) {
-            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setLong(1, entity.getId());
             preparedStatement.setString(2, entity.getFirstName());
             preparedStatement.setString(3, entity.getLastName());
             preparedStatement.setString(4, entity.getRole());
@@ -26,16 +26,16 @@ public class UserDAO implements DAOConnectionPassing<User> {
     }
 
     @Override
-    public User getById(int id) {
+    public User getById(long id) {
         User user = null;
         try (Connection connection = HikariCPDataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from courses.users where id=?")) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     user = User.builder()
-                            .id(resultSet.getInt(1))
+                            .id(resultSet.getLong(1))
                             .firstName(resultSet.getString(2))
                             .lastName(resultSet.getString(3))
                             .role(resultSet.getString(4))
@@ -57,7 +57,7 @@ public class UserDAO implements DAOConnectionPassing<User> {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     usersList.add(User.builder()
-                            .id(resultSet.getInt(1))
+                            .id(resultSet.getLong(1))
                             .firstName(resultSet.getString(2))
                             .lastName(resultSet.getString(3))
                             .role(resultSet.getString(4))
@@ -74,7 +74,7 @@ public class UserDAO implements DAOConnectionPassing<User> {
     public void edit(User entity, Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "update courses.users set fname=?, lname=?, role=? where id=?")) {
-            preparedStatement.setInt(4, entity.getId());
+            preparedStatement.setLong(4, entity.getId());
             preparedStatement.setString(1, entity.getFirstName());
             preparedStatement.setString(2, entity.getLastName());
             preparedStatement.setString(3, entity.getRole());
@@ -88,7 +88,7 @@ public class UserDAO implements DAOConnectionPassing<User> {
     public void remove(User entity, Connection connection) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                      "delete from courses.users where id=?")) {
-            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setLong(1, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class UserDAO implements DAOConnectionPassing<User> {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     user = User.builder()
-                            .id(resultSet.getInt(1))
+                            .id(resultSet.getLong(1))
                             .firstName(resultSet.getString(2))
                             .lastName(resultSet.getString(3))
                             .role(resultSet.getString(4))
@@ -163,7 +163,7 @@ public class UserDAO implements DAOConnectionPassing<User> {
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 user = User.builder()
-                        .id(resultSet.getInt(1))
+                        .id(resultSet.getLong(1))
                         .firstName(resultSet.getString(2))
                         .lastName(resultSet.getString(3))
                         .role(resultSet.getString(4))
