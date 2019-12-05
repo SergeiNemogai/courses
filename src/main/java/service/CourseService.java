@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CourseService {
-    private CourseDAO courseDAO;
+    private final CourseDAO courseDAO = DAOFactory.getCourseDAO();
     private Connection connection;
 
     private void rollbackConnection(Connection connection) {
@@ -33,7 +33,6 @@ public class CourseService {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            courseDAO = DAOFactory.getCourseDAO();
             courseDAO.add(entity, connection);
             connection.commit();
         } catch (SQLException e) {
@@ -44,7 +43,7 @@ public class CourseService {
         }
     }
 
-    public Course getById(int id) {
+    public Course getById(long id) {
         return courseDAO.getById(id);
     }
 
@@ -56,7 +55,6 @@ public class CourseService {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            courseDAO = DAOFactory.getCourseDAO();
             courseDAO.edit(entity, connection);
             connection.commit();
         } catch (SQLException e) {
@@ -71,7 +69,6 @@ public class CourseService {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            courseDAO = DAOFactory.getCourseDAO();
             courseDAO.remove(entity, connection);
             connection.commit();
         } catch (SQLException e) {
