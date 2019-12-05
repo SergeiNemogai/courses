@@ -61,7 +61,7 @@ class UserCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     user = User.builder()
-                            .id(Integer.parseInt(data[0]))
+                            .id(Long.parseLong(data[0]))
                             .firstName(data[1])
                             .lastName(data[2])
                             .role(data[3]).build();
@@ -85,7 +85,7 @@ class UserCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     user = User.builder()
-                            .id(Integer.parseInt(data[0]))
+                            .id(Long.parseLong(data[0]))
                             .firstName(data[1])
                             .lastName(data[2])
                             .role(data[3]).build();
@@ -98,7 +98,7 @@ class UserCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     user = User.builder()
-                            .id(Integer.parseInt(data[0]))
+                            .id(Long.parseLong(data[0]))
                             .firstName(data[1])
                             .lastName(data[2])
                             .role(data[3]).build();

@@ -33,7 +33,7 @@ class CourseCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     course = Course.builder()
-                            .id(Integer.parseInt(data[0]))
+                            .id(Long.parseLong(data[0]))
                             .name(data[1])
                             .createdAt(Date.valueOf(data[2]))
                             .startDateTime(Timestamp.valueOf(data[3]))
@@ -60,7 +60,7 @@ class CourseCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     course = Course.builder()
-                            .id(Integer.parseInt(data[0]))
+                            .id(Long.parseLong(data[0]))
                             .name(data[1])
                             .createdAt(Date.valueOf(data[2]))
                             .startDateTime(Timestamp.valueOf(data[3]))
@@ -76,7 +76,7 @@ class CourseCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     course = Course.builder()
-                            .id(Integer.parseInt(data[0]))
+                            .id(Long.parseLong(data[0]))
                             .name(data[1])
                             .createdAt(Date.valueOf(data[2]))
                             .startDateTime(Timestamp.valueOf(data[3]))

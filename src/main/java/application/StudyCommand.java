@@ -24,9 +24,9 @@ class StudyCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     study = Study.builder()
-                            .id(Integer.parseInt(data[0]))
-                            .courseId(Integer.parseInt(data[1]))
-                            .userId(Integer.parseInt(data[2]))
+                            .id(Long.parseLong(data[0]))
+                            .courseId(Long.parseLong(data[1]))
+                            .userId(Long.parseLong(data[2]))
                             .build();
                     studyService.add(study);
                     System.out.println("Study added successfully");
@@ -48,9 +48,9 @@ class StudyCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     study = Study.builder()
-                            .id(Integer.parseInt(data[0]))
-                            .courseId(Integer.parseInt(data[1]))
-                            .userId(Integer.parseInt(data[2]))
+                            .id(Long.parseLong(data[0]))
+                            .courseId(Long.parseLong(data[1]))
+                            .userId(Long.parseLong(data[2]))
                             .build();
                     studyService.edit(study);
                     System.out.println("Created course edited successfully");
@@ -61,9 +61,9 @@ class StudyCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     study = Study.builder()
-                            .id(Integer.parseInt(data[0]))
-                            .courseId(Integer.parseInt(data[1]))
-                            .userId(Integer.parseInt(data[2]))
+                            .id(Long.parseLong(data[0]))
+                            .courseId(Long.parseLong(data[1]))
+                            .userId(Long.parseLong(data[2]))
                             .build();
                     studyService.remove(study);
                     System.out.println("Studied course deleted successfully");

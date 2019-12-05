@@ -24,8 +24,8 @@ class CreatedCourseCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     createdCourse = CreatedCourse.builder()
-                            .userId(Integer.parseInt(data[0]))
-                            .courseId(Integer.parseInt(data[1]))
+                            .userId(Long.parseLong(data[0]))
+                            .courseId(Long.parseLong(data[1]))
                             .build();
                     createdCourseService.add(createdCourse);
                     System.out.println("Created course added successfully");
@@ -47,8 +47,8 @@ class CreatedCourseCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     createdCourse = CreatedCourse.builder()
-                            .userId(Integer.parseInt(data[0]))
-                            .courseId(Integer.parseInt(data[1]))
+                            .userId(Long.parseLong(data[0]))
+                            .courseId(Long.parseLong(data[1]))
                             .build();
                     createdCourseService.edit(createdCourse);
                     System.out.println("Created course edited successfully");
@@ -59,8 +59,8 @@ class CreatedCourseCommand {
                     userInput = bufferedReader.readLine();
                     data = userInput.split(" ");
                     createdCourse = CreatedCourse.builder()
-                            .userId(Integer.parseInt(data[0]))
-                            .courseId(Integer.parseInt(data[1]))
+                            .userId(Long.parseLong(data[0]))
+                            .courseId(Long.parseLong(data[1]))
                             .build();
                     createdCourseService.remove(createdCourse);
                     System.out.println("Course deleted successfully");
