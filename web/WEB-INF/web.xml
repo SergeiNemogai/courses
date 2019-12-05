@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>controller.UserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>StudyController</servlet-name>
+        <servlet-class>controller.StudyController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudyController</servlet-name>
+        <url-pattern>/study</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CreatedCourseController</servlet-name>
+        <servlet-class>controller.CreatedCourseController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreatedCourseController</servlet-name>
+        <url-pattern>/created-course</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CourseController</servlet-name>
+        <servlet-class>controller.CourseController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CourseController</servlet-name>
+        <url-pattern>/course</url-pattern>
+    </servlet-mapping>
+</web-app>
