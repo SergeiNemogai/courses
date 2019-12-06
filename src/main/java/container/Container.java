@@ -1,6 +1,8 @@
 package container;
 
 public class Container {
-    // magic
-    // doesn't work :(
+    //TODO: IoC container creating DAOs, services and controllers
+    //magic
+    //doesn't work :(
+    // Брюс Эккель.Аннтотации (философия джава)
 }
