@@ -10,15 +10,20 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Container {
     private Map<String, Object> singletons = new HashMap<>();
+
+    public Container(String basePackage) {
+        this.instantiate(basePackage);
+    }
 
     public Object getBean(String beanName) {
         return singletons.get(beanName);
     }
 
-    public void instantiate(String basePackage) {
+    private void instantiate(String basePackage) {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         String path = basePackage.replace('.', '/');
         try {
@@ -27,7 +32,7 @@ public class Container {
                 URL resource = resources.nextElement();
                 File file = new File(resource.toURI());
 
-                for (File classFile : file.listFiles()) {
+                for (File classFile : Objects.requireNonNull(file.listFiles())) {
                     String fileName = classFile.getName();
 
                     if (fileName.endsWith(".class")) {

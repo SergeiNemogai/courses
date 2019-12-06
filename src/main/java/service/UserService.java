@@ -1,5 +1,6 @@
 package service;
 
+import container.annotation.Service;
 import dao.DAOFactory;
 import dao.UserDAO;
 import datasource.HikariCPDataSource;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class UserService {
     private final UserDAO userDAO = DAOFactory.getUserDAO();
     private Connection connection;

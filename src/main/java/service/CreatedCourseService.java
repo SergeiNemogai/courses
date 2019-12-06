@@ -1,5 +1,6 @@
 package service;
 
+import container.annotation.Service;
 import dao.CreatedCourseDAO;
 import dao.DAOFactory;
 import datasource.HikariCPDataSource;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class CreatedCourseService {
     private final CreatedCourseDAO createdCourseDAO = DAOFactory.getCreatedCourseDAO();
     private Connection connection;

@@ -1,5 +1,6 @@
 package dao;
 
+import container.annotation.Component;
 import datasource.HikariCPDataSource;
 import entity.Status;
 
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class StatusDAO implements DAO<Status> {
     @Override
     public void add(Status entity) {

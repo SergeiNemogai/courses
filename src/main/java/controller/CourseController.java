@@ -1,6 +1,10 @@
 package controller;
 
-import javax.servlet.ServletException;
+import container.Container;
+import entity.Course;
+import service.CourseService;
+import service.ServiceFactory;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,13 +12,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class CourseController extends HttpServlet {
-    //TODO: all CRUD operations from CourseService
-
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        /*Container container = new Container("service");
+        CourseService courseService = (CourseService) container.getBean("CourseService");*/
+        resp.setContentType("text/html;charset=UTF-8");
+        CourseService courseService = ServiceFactory.getCourseService();
+
         try (PrintWriter writer = resp.getWriter()) {
-            writer.println("from CourseController");
+            for(Course course : courseService.getAll()) {
+                writer.println("<p>" + course + "<p>");
+            }
         }
     }
 }
