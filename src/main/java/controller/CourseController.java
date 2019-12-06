@@ -1,6 +1,5 @@
 package controller;
 
-import container.Container;
 import entity.Course;
 import service.CourseService;
 import service.ServiceFactory;
@@ -10,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseController extends HttpServlet {
     @Override
@@ -18,10 +19,21 @@ public class CourseController extends HttpServlet {
         CourseService courseService = (CourseService) container.getBean("CourseService");*/
         resp.setContentType("text/html;charset=UTF-8");
         CourseService courseService = ServiceFactory.getCourseService();
-
+        String id = req.getParameter("id");
+        boolean onStudy = Boolean.parseBoolean(req.getParameter("on-study"));
         try (PrintWriter writer = resp.getWriter()) {
-            for(Course course : courseService.getAll()) {
-                writer.println("<p>" + course + "<p>");
+            if (id == null) {
+                List<Course> courses = new ArrayList<>();
+                if (onStudy) {
+                    courses.addAll(courseService.getCoursesOnStudy());
+                } else {
+                    courses.addAll(courseService.getAll());
+                }
+                for(Course course : courses) {
+                    writer.println("<p>" + course + "<p>");
+                }
+            } else {
+                writer.println(courseService.getById(Long.parseLong(id)));
             }
         }
     }
