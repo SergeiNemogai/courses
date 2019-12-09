@@ -4,6 +4,7 @@ import entity.User;
 import service.ServiceFactory;
 import service.UserService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,12 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserController extends HttpServlet {
-    //TODO: all CRUD operations from UserService
+    private UserService userService;
+
+    @Override
+    public void init() throws ServletException {
+        userService = ServiceFactory.getUserService();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html;charset=UTF-8");
-        UserService userService = ServiceFactory.getUserService();
         String id = req.getParameter("id");
         String courseName = req.getParameter("course-name");
         boolean isStudents = Boolean.parseBoolean(req.getParameter("student"));
@@ -45,6 +50,53 @@ public class UserController extends HttpServlet {
             } else {
                 writer.println(userService.getById(Long.parseLong(id)));
             }
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = Long.parseLong(req.getParameter("id"));
+        String fname = req.getParameter("fname");
+        String lname = req.getParameter("lname");
+        String role = req.getParameter("role");
+        if (fname != null && lname != null && role != null) {
+            userService.add(User.builder()
+                    .id(id)
+                    .firstName(fname)
+                    .lastName(lname)
+                    .role(role)
+                    .build());
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = Long.parseLong(req.getParameter("id"));
+        String fname = req.getParameter("fname");
+        String lname = req.getParameter("lname");
+        String role = req.getParameter("role");
+        if (fname != null && lname != null && role != null) {
+            userService.edit(User.builder()
+                    .id(id)
+                    .firstName(fname)
+                    .lastName(lname)
+                    .role(role)
+                    .build());
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = Long.parseLong(req.getParameter("id"));
+        String fname = req.getParameter("fname");
+        String lname = req.getParameter("lname");
+        String role = req.getParameter("role");
+        if (fname != null && lname != null && role != null) {
+            userService.remove(User.builder()
+                    .id(id)
+                    .firstName(fname)
+                    .lastName(lname)
+                    .role(role).build());
         }
     }
 }

@@ -9,7 +9,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/user</url-pattern>
+        <url-pattern>/users</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>StudyController</servlet-name>
@@ -17,7 +17,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>StudyController</servlet-name>
-        <url-pattern>/study</url-pattern>
+        <url-pattern>/studies</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>CreatedCourseController</servlet-name>
@@ -25,7 +25,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CreatedCourseController</servlet-name>
-        <url-pattern>/created-course</url-pattern>
+        <url-pattern>/created-courses</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>CourseController</servlet-name>
@@ -33,6 +33,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CourseController</servlet-name>
-        <url-pattern>/course</url-pattern>
+        <url-pattern>/courses</url-pattern>
     </servlet-mapping>
 </web-app>
