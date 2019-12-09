@@ -1,6 +1,5 @@
 package service;
 
-import container.annotation.Service;
 import dao.DAOConnectionPassing;
 import datasource.HikariCPDataSource;
 import entity.Study;
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@Service
 public class StudyService {
     private final DAOConnectionPassing<Study> daoConnectionPassing;
     private Connection connection;
