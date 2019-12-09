@@ -2,7 +2,6 @@ package service;
 
 import container.annotation.Service;
 import dao.CourseDAO;
-import dao.DAOFactory;
 import datasource.HikariCPDataSource;
 import entity.Course;
 
@@ -12,8 +11,12 @@ import java.util.List;
 
 @Service
 public class CourseService {
-    private final CourseDAO courseDAO = DAOFactory.getCourseDAO();
+    private final CourseDAO courseDAO;
     private Connection connection;
+
+    public CourseService(CourseDAO courseDAO) {
+        this.courseDAO = courseDAO;
+    }
 
     private void rollbackConnection(Connection connection) {
         try {

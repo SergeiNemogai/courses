@@ -1,8 +1,7 @@
 package service;
 
 import container.annotation.Service;
-import dao.DAOFactory;
-import dao.StudyDAO;
+import dao.DAOConnectionPassing;
 import datasource.HikariCPDataSource;
 import entity.Study;
 
@@ -12,8 +11,12 @@ import java.util.List;
 
 @Service
 public class StudyService {
-    private final StudyDAO studyDAO = DAOFactory.getStudyDAO();
+    private final DAOConnectionPassing<Study> daoConnectionPassing;
     private Connection connection;
+
+    public StudyService(DAOConnectionPassing<Study> daoConnectionPassing) {
+        this.daoConnectionPassing = daoConnectionPassing;
+    }
 
     private void rollbackConnection(Connection connection) {
         try {
@@ -35,7 +38,7 @@ public class StudyService {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            studyDAO.add(entity, connection);
+            daoConnectionPassing.add(entity, connection);
             connection.commit();
         } catch (SQLException e) {
             rollbackConnection(connection);
@@ -46,18 +49,18 @@ public class StudyService {
     }
 
     public Study getById(long id) {
-        return studyDAO.getById(id);
+        return daoConnectionPassing.getById(id);
     }
 
     public List<Study> getAll() {
-        return studyDAO.getAll();
+        return daoConnectionPassing.getAll();
     }
 
     public void edit(Study entity) {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            studyDAO.edit(entity, connection);
+            daoConnectionPassing.edit(entity, connection);
             connection.commit();
         } catch (SQLException e) {
             rollbackConnection(connection);
@@ -71,7 +74,7 @@ public class StudyService {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            studyDAO.remove(entity, connection);
+            daoConnectionPassing.remove(entity, connection);
             connection.commit();
         } catch (SQLException e) {
             rollbackConnection(connection);

@@ -1,8 +1,7 @@
 package service;
 
 import container.annotation.Service;
-import dao.CreatedCourseDAO;
-import dao.DAOFactory;
+import dao.DAOConnectionPassing;
 import datasource.HikariCPDataSource;
 import entity.CreatedCourse;
 
@@ -12,8 +11,12 @@ import java.util.List;
 
 @Service
 public class CreatedCourseService {
-    private final CreatedCourseDAO createdCourseDAO = DAOFactory.getCreatedCourseDAO();
+    private final DAOConnectionPassing<CreatedCourse> daoConnectionPassing;
     private Connection connection;
+
+    public CreatedCourseService(DAOConnectionPassing<CreatedCourse> daoConnectionPassing) {
+        this.daoConnectionPassing = daoConnectionPassing;
+    }
 
     private void rollbackConnection(Connection connection) {
         try {
@@ -35,7 +38,7 @@ public class CreatedCourseService {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            createdCourseDAO.add(entity, connection);
+            daoConnectionPassing.add(entity, connection);
             connection.commit();
         } catch (SQLException e) {
             rollbackConnection(connection);
@@ -46,18 +49,18 @@ public class CreatedCourseService {
     }
 
     public CreatedCourse getById(long id) {
-        return createdCourseDAO.getById(id);
+        return daoConnectionPassing.getById(id);
     }
 
     public List<CreatedCourse> getAll() {
-        return createdCourseDAO.getAll();
+        return daoConnectionPassing.getAll();
     }
 
     public void edit(CreatedCourse entity) {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            createdCourseDAO.edit(entity, connection);
+            daoConnectionPassing.edit(entity, connection);
             connection.commit();
         } catch (SQLException e) {
             rollbackConnection(connection);
@@ -71,7 +74,7 @@ public class CreatedCourseService {
         try {
             connection = HikariCPDataSource.getConnection();
             connection.setAutoCommit(false);
-            createdCourseDAO.remove(entity, connection);
+            daoConnectionPassing.remove(entity, connection);
             connection.commit();
         } catch (SQLException e) {
             rollbackConnection(connection);
