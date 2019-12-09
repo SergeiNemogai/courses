@@ -1,8 +1,8 @@
 package controller;
 
+import container.Container;
 import entity.Course;
 import service.CourseService;
-import service.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,14 +19,12 @@ public class CourseController extends HttpServlet {
     private CourseService courseService;
 
     @Override
-    public void init() throws ServletException {
-        courseService = ServiceFactory.getCourseService();
+    public void init() {
+        courseService = Container.getCourseService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        /*Container container = new Container("service");
-        CourseService courseService = (CourseService) container.getBean("CourseService");*/
         resp.setContentType("text/html;charset=UTF-8");
         String id = req.getParameter("id");
         boolean onStudy = Boolean.parseBoolean(req.getParameter("on-study"));
@@ -48,7 +46,7 @@ public class CourseController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         String name = req.getParameter("name");
         Date createdAt = Date.valueOf(req.getParameter("created"));
@@ -68,7 +66,7 @@ public class CourseController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         String name = req.getParameter("name");
         Date createdAt = Date.valueOf(req.getParameter("created"));
@@ -88,7 +86,7 @@ public class CourseController extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         String name = req.getParameter("name");
         Date createdAt = Date.valueOf(req.getParameter("created"));

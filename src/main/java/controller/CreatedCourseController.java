@@ -1,8 +1,8 @@
 package controller;
 
+import container.Container;
 import entity.CreatedCourse;
 import service.CreatedCourseService;
-import service.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +15,8 @@ public class CreatedCourseController extends HttpServlet {
     private CreatedCourseService createdCourseService;
 
     @Override
-    public void init() throws ServletException {
-        createdCourseService = ServiceFactory.getCreatedCourseService();
+    public void init() {
+        createdCourseService = Container.getCreatedCourseService();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CreatedCourseController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Long userId = Long.parseLong(req.getParameter("user_id"));
         Long courseId = Long.parseLong(req.getParameter("course_id"));
         createdCourseService.add(CreatedCourse.builder()
@@ -45,7 +45,7 @@ public class CreatedCourseController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         Long userId = Long.parseLong(req.getParameter("user_id"));
         Long courseId = Long.parseLong(req.getParameter("course_id"));
         createdCourseService.edit(CreatedCourse.builder()
@@ -55,7 +55,7 @@ public class CreatedCourseController extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         Long userId = Long.parseLong(req.getParameter("user_id"));
         Long courseId = Long.parseLong(req.getParameter("course_id"));
         createdCourseService.remove(CreatedCourse.builder()

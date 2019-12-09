@@ -1,7 +1,7 @@
 package controller;
 
+import container.Container;
 import entity.Study;
-import service.ServiceFactory;
 import service.StudyService;
 
 import javax.servlet.ServletException;
@@ -15,8 +15,8 @@ public class StudyController extends HttpServlet {
     private StudyService studyService;
 
     @Override
-    public void init() throws ServletException {
-        studyService = ServiceFactory.getStudyService();
+    public void init() {
+        studyService = Container.getStudyService();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class StudyController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         Long courseId = Long.parseLong(req.getParameter("course_id"));
         Long userId = Long.parseLong(req.getParameter("user_id"));
@@ -47,7 +47,7 @@ public class StudyController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         Long courseId = Long.parseLong(req.getParameter("course_id"));
         Long userId = Long.parseLong(req.getParameter("user_id"));
@@ -59,7 +59,7 @@ public class StudyController extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         Long courseId = Long.parseLong(req.getParameter("course_id"));
         Long userId = Long.parseLong(req.getParameter("user_id"));

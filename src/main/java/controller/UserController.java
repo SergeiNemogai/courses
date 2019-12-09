@@ -1,7 +1,7 @@
 package controller;
 
+import container.Container;
 import entity.User;
-import service.ServiceFactory;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -17,8 +17,8 @@ public class UserController extends HttpServlet {
     private UserService userService;
 
     @Override
-    public void init() throws ServletException {
-        userService = ServiceFactory.getUserService();
+    public void init() {
+        userService = Container.getUserService();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class UserController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         String fname = req.getParameter("fname");
         String lname = req.getParameter("lname");
@@ -70,7 +70,7 @@ public class UserController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         String fname = req.getParameter("fname");
         String lname = req.getParameter("lname");
@@ -86,7 +86,7 @@ public class UserController extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         String fname = req.getParameter("fname");
         String lname = req.getParameter("lname");

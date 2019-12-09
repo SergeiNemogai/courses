@@ -1,55 +1,45 @@
 package container;
 
-import container.annotation.Component;
-import container.annotation.Service;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import dao.CourseDAO;
+import dao.CreatedCourseDAO;
+import dao.StudyDAO;
+import dao.UserDAO;
+import service.CourseService;
+import service.CreatedCourseService;
+import service.StudyService;
+import service.UserService;
 
 public class Container {
-    private Map<String, Object> singletons = new HashMap<>();
+    private static CourseService courseService;
+    private static CreatedCourseService createdCourseService;
+    private static StudyService studyService;
+    private static UserService userService;
 
-    public Container(String basePackage) {
-        this.instantiate(basePackage);
-    }
-
-    public Object getBean(String beanName) {
-        return singletons.get(beanName);
-    }
-
-    private void instantiate(String basePackage) {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        String path = basePackage.replace('.', '/');
-        try {
-            Enumeration<URL> resources = classLoader.getResources(path);
-            while (resources.hasMoreElements()) {
-                URL resource = resources.nextElement();
-                File file = new File(resource.toURI());
-
-                for (File classFile : Objects.requireNonNull(file.listFiles())) {
-                    String fileName = classFile.getName();
-
-                    if (fileName.endsWith(".class")) {
-                        String className = fileName.substring(0, fileName.lastIndexOf('.'));
-                        Class classObject = Class.forName(basePackage + "." + className);
-
-                        if (classObject.isAnnotationPresent(Component.class)
-                                || classObject.isAnnotationPresent(Service.class)) {
-                            System.out.println("Bean :" + classObject);
-                            Object instance = classObject.newInstance();
-                            singletons.put(className, instance);
-                        }
-                    }
-                }
-            }
-        } catch (IOException | URISyntaxException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+    public static CourseService getCourseService() {
+        if (courseService == null) {
+            courseService = new CourseService(new CourseDAO());
         }
+        return courseService;
+    }
+
+    public static CreatedCourseService getCreatedCourseService() {
+        if (createdCourseService == null) {
+            createdCourseService = new CreatedCourseService(new CreatedCourseDAO());
+        }
+        return createdCourseService;
+    }
+
+    public static StudyService getStudyService() {
+        if (studyService == null) {
+            studyService = new StudyService(new StudyDAO());
+        }
+        return studyService;
+    }
+
+    public static UserService getUserService() {
+        if (userService == null) {
+            userService = new UserService(new UserDAO());
+        }
+        return userService;
     }
 }
