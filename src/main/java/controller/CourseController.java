@@ -1,9 +1,11 @@
 package controller;
 
-import container.Container;
 import entity.Course;
 import service.CourseService;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +19,13 @@ import java.util.List;
 public class CourseController extends HttpServlet {
     private CourseService courseService;
 
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
+
     @Override
-    public void init() {
-        courseService = Container.getCourseService();
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        super.service(req, res);
     }
 
     @Override

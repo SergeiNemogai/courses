@@ -24,7 +24,7 @@ public class CreatedCourseController extends HttpServlet {
         String id = req.getParameter("id");
         try (PrintWriter writer = resp.getWriter()) {
             if (id == null) {
-                for(CreatedCourse createdCourse : createdCourseService.getAll()) {
+                for (CreatedCourse createdCourse : createdCourseService.getAll()) {
                     writer.println("<p>" + createdCourse + "<p>");
                 }
             } else {
