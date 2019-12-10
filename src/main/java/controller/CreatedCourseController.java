@@ -1,6 +1,5 @@
 package controller;
 
-import container.Container;
 import entity.CreatedCourse;
 import service.CreatedCourseService;
 
@@ -11,11 +10,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class CreatedCourseController extends HttpServlet {
-    private CreatedCourseService createdCourseService;
+    private final CreatedCourseService createdCourseService;
 
-    @Override
-    public void init() {
-        createdCourseService = Container.getCreatedCourseService();
+    public CreatedCourseController(CreatedCourseService createdCourseService) {
+        this.createdCourseService = createdCourseService;
     }
 
     @Override

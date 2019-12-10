@@ -1,6 +1,5 @@
 package controller;
 
-import container.Container;
 import entity.User;
 import service.UserService;
 
@@ -13,11 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserController extends HttpServlet {
-    private UserService userService;
+    private final UserService userService;
 
-    @Override
-    public void init() {
-        userService = Container.getUserService();
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @Override

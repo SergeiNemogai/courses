@@ -1,6 +1,5 @@
 package controller;
 
-import container.Container;
 import entity.Study;
 import service.StudyService;
 
@@ -11,11 +10,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class StudyController extends HttpServlet {
-    private StudyService studyService;
+    private final StudyService studyService;
 
-    @Override
-    public void init() {
-        studyService = Container.getStudyService();
+    public StudyController(StudyService studyService) {
+        this.studyService = studyService;
     }
 
     @Override
