@@ -1,6 +1,5 @@
 package dao;
 
-import container.annotation.Component;
 import datasource.HikariCPDataSource;
 import entity.Course;
 
@@ -11,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class CourseDAO implements DAOConnectionPassing<Course> {
     @Override
     public void add(Course entity, Connection connection) {
