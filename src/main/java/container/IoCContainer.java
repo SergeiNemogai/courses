@@ -23,7 +23,11 @@ public class IoCContainer {
         return container.get(beanName);
     }
 
-    public void instantiate() {
+    public IoCContainer() {
+        instantiate();
+    }
+
+    private void instantiate() {
         container.put("courses.DAO", new CourseDAO());
         container.put("created-courses.DAO", new CreatedCourseDAO());
         container.put("studies.DAO", new StudyDAO());

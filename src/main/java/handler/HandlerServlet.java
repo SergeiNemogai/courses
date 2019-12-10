@@ -1,27 +1,27 @@
 package handler;
 
-import container.Container;
-import controller.CourseController;
+import container.IoCContainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class HandlerServlet extends HttpServlet {
     private HttpServlet controller;
-
-    @Override
-    public void init() throws ServletException {
-        controller = new CourseController(Container.getCourseService());
-    }
+    private final IoCContainer container = new IoCContainer();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getPathInfo().equals("/")) {
-            System.out.println("hello");
+        String path = req.getPathInfo();
+        if (path.equals("/")) {
+            try (PrintWriter writer = resp.getWriter()) {
+                writer.println("<h1>" + "Home page. It's OK" + "</h1>");
+            }
         } else {
+            controller = (HttpServlet) container.getBean(path.substring(1));
             controller.service(req, resp);
         }
     }
