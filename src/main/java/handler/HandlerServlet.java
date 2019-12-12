@@ -23,7 +23,7 @@ public class HandlerServlet extends HttpServlet {
         } else {
             controller = (HttpServlet) container.getBean(path.substring(1));
             if (controller == null) {
-                resp.setStatus(404);
+                sendNotFound(resp);
             } else {
                 controller.service(req, resp);
             }
@@ -35,7 +35,7 @@ public class HandlerServlet extends HttpServlet {
         String path = req.getPathInfo();
         controller = (HttpServlet) container.getBean(path.substring(1));
         if (controller == null) {
-            resp.setStatus(404);
+            sendNotFound(resp);
         } else {
             controller.service(req, resp);
             resp.setStatus(201);
@@ -47,7 +47,7 @@ public class HandlerServlet extends HttpServlet {
         String path = req.getPathInfo();
         controller = (HttpServlet) container.getBean(path.substring(1));
         if (controller == null) {
-            resp.setStatus(404);
+            sendNotFound(resp);
         } else {
             controller.service(req, resp);
         }
@@ -58,10 +58,20 @@ public class HandlerServlet extends HttpServlet {
         String path = req.getPathInfo();
         controller = (HttpServlet) container.getBean(path.substring(1));
         if (controller == null) {
-            resp.setStatus(404);
+            sendNotFound(resp);
         } else {
             controller.service(req, resp);
             resp.setStatus(204);
+        }
+    }
+
+    private void sendNotFound(HttpServletResponse response) {
+        try (PrintWriter writer = response.getWriter()) {
+            response.setStatus(404);
+            response.setContentType("application/json;charset=UTF-8");
+            writer.println("{ \"error\" : \"Resource you've been searching doesn't exist\" }");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
