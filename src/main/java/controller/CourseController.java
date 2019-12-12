@@ -2,6 +2,7 @@ package controller;
 
 import entity.Course;
 import service.CourseService;
+import util.JsonConverter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,23 +23,21 @@ public class CourseController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html;charset=UTF-8");
+        resp.setContentType("application/json;charset=UTF-8");
         String id = req.getParameter("id");
         boolean onStudy = Boolean.parseBoolean(req.getParameter("on-study"));
         try (PrintWriter writer = resp.getWriter()) {
+            List<Course> courses = new ArrayList<>();
             if (id == null) {
-                List<Course> courses = new ArrayList<>();
                 if (onStudy) {
                     courses.addAll(courseService.getCoursesOnStudy());
                 } else {
                     courses.addAll(courseService.getAll());
                 }
-                for(Course course : courses) {
-                    writer.println("<p>" + course + "<p>");
-                }
             } else {
-                writer.println(courseService.getById(Long.parseLong(id)));
+                courses.add(courseService.getById(Long.parseLong(id)));
             }
+            writer.println(new JsonConverter().convertToJson(courses, "courses"));
         }
     }
 

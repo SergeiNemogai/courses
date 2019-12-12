@@ -2,12 +2,15 @@ package controller;
 
 import entity.Study;
 import service.StudyService;
+import util.JsonConverter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudyController extends HttpServlet {
     private final StudyService studyService;
@@ -18,16 +21,16 @@ public class StudyController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html;charset=UTF-8");
+        resp.setContentType("application/json;charset=UTF-8");
         String id = req.getParameter("id");
         try (PrintWriter writer = resp.getWriter()) {
+            List<Study> studies = new ArrayList<>();
             if (id == null) {
-                for (Study study : studyService.getAll()) {
-                    writer.println("<p>" + study + "</p>");
-                }
+                studies.addAll(studyService.getAll());
             } else {
-                writer.println(studyService.getById(Long.parseLong(id)));
+                studies.add(studyService.getById(Long.parseLong(id)));
             }
+            writer.println(new JsonConverter().convertToJson(studies, "studies"));
         }
     }
 
