@@ -38,7 +38,15 @@ public class CourseController extends HttpServlet {
                     courses.addAll(courseService.getAll());
                 }
             } else {
-                courses.add(courseService.getById(Long.parseLong(id)));
+                try {
+                    courses.add(courseService.getById(Long.parseLong(id)));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    resp.setStatus(400);
+                    resp.setContentType("application/json;charset=UTF-8");
+                    writer.println("{ \"error\" : \"Course id must be numeric\" }");
+                    return;
+                }
             }
             writer.println(new JsonConverter().convertToJson(courses, "courses"));
         }
@@ -47,63 +55,80 @@ public class CourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long id = jsonObject.get("id").getAsLong();
-        String name = jsonObject.get("name").getAsString();
-        Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
-        Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
-        Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
-        String status = jsonObject.get("status").getAsString();
-        if (name != null && createdAt != null && status != null) {
-            courseService.add(Course.builder()
-                    .id(id)
-                    .name(name)
-                    .createdAt(createdAt)
-                    .startDateTime(start)
-                    .endDateTime(end)
-                    .status(status)
-                    .build());
+        try {
+            Long id = jsonObject.get("id").getAsLong();
+            String name = jsonObject.get("name").getAsString();
+            Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
+            Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
+            Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
+            String status = jsonObject.get("status").getAsString();
+            if (name != null && createdAt != null && status != null) {
+                courseService.add(Course.builder()
+                        .id(id)
+                        .name(name)
+                        .createdAt(createdAt)
+                        .startDateTime(start)
+                        .endDateTime(end)
+                        .status(status)
+                        .build());
+            }
+            resp.setStatus(201);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long id = jsonObject.get("id").getAsLong();
-        String name = jsonObject.get("name").getAsString();
-        Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
-        Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
-        Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
-        String status = jsonObject.get("status").getAsString();
-        if (name != null && createdAt != null && status != null) {
-            courseService.edit(Course.builder()
-                    .id(id)
-                    .name(name)
-                    .createdAt(createdAt)
-                    .startDateTime(start)
-                    .endDateTime(end)
-                    .status(status)
-                    .build());
+        try {
+            Long id = jsonObject.get("id").getAsLong();
+            String name = jsonObject.get("name").getAsString();
+            Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
+            Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
+            Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
+            String status = jsonObject.get("status").getAsString();
+            if (name != null && createdAt != null && status != null) {
+                courseService.edit(Course.builder()
+                        .id(id)
+                        .name(name)
+                        .createdAt(createdAt)
+                        .startDateTime(start)
+                        .endDateTime(end)
+                        .status(status)
+                        .build());
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long id = jsonObject.get("id").getAsLong();
-        String name = jsonObject.get("name").getAsString();
-        Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
-        Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
-        Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
-        String status = jsonObject.get("status").getAsString();
-        if (name != null && createdAt != null && status != null) {
-            courseService.remove(Course.builder()
-                    .id(id)
-                    .name(name)
-                    .createdAt(createdAt)
-                    .startDateTime(start)
-                    .endDateTime(end)
-                    .status(status)
-                    .build());
+        try {
+            Long id = jsonObject.get("id").getAsLong();
+            String name = jsonObject.get("name").getAsString();
+            Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
+            Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
+            Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
+            String status = jsonObject.get("status").getAsString();
+            if (name != null && createdAt != null && status != null) {
+                courseService.remove(Course.builder()
+                        .id(id)
+                        .name(name)
+                        .createdAt(createdAt)
+                        .startDateTime(start)
+                        .endDateTime(end)
+                        .status(status)
+                        .build());
+            }
+            resp.setStatus(204);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
         }
     }
 }

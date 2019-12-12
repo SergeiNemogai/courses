@@ -38,7 +38,6 @@ public class HandlerServlet extends HttpServlet {
             sendNotFound(resp);
         } else {
             controller.service(req, resp);
-            resp.setStatus(201);
         }
     }
 
@@ -61,7 +60,6 @@ public class HandlerServlet extends HttpServlet {
             sendNotFound(resp);
         } else {
             controller.service(req, resp);
-            resp.setStatus(204);
         }
     }
 
