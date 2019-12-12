@@ -2,6 +2,7 @@ package controller;
 
 import entity.User;
 import service.UserService;
+import util.JsonConverter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +21,14 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html;charset=UTF-8");
+        resp.setContentType("application/json;charset=UTF-8");
         String id = req.getParameter("id");
         String courseName = req.getParameter("course-name");
         boolean isStudents = Boolean.parseBoolean(req.getParameter("student"));
         String teacherName = req.getParameter("teacher-name");
         try (PrintWriter writer = resp.getWriter()) {
+            List<User> users = new ArrayList<>();
             if (id == null) {
-                List<User> users = new ArrayList<>();
                 if (isStudents) {
                     if (teacherName == null && courseName != null) {
                         users.addAll(userService.getStudentsByCourse(courseName));
@@ -39,14 +40,10 @@ public class UserController extends HttpServlet {
                 } else {
                     users.addAll(userService.getAll());
                 }
-                if (!users.isEmpty()) {
-                    for (User user : users) {
-                        writer.println("<p>" + user + "</p>");
-                    }
-                }
             } else {
-                writer.println(userService.getById(Long.parseLong(id)));
+                users.add(userService.getById(Long.parseLong(id)));
             }
+            writer.println(new JsonConverter().convertToJson(users, "users"));
         }
     }
 
