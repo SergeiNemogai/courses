@@ -1,8 +1,11 @@
 package controller;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import entity.Course;
 import service.CourseService;
 import util.JsonConverter;
+import util.RequestBodyParser;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,12 +46,13 @@ public class CourseController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        String name = req.getParameter("name");
-        Date createdAt = Date.valueOf(req.getParameter("created"));
-        Timestamp start = Timestamp.valueOf(req.getParameter("start"));
-        Timestamp end = Timestamp.valueOf(req.getParameter("start"));
-        String status = req.getParameter("status");
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        String name = jsonObject.get("name").getAsString();
+        Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
+        Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
+        Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
+        String status = jsonObject.get("status").getAsString();
         if (name != null && createdAt != null && status != null) {
             courseService.add(Course.builder()
                     .id(id)
@@ -63,12 +67,13 @@ public class CourseController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        String name = req.getParameter("name");
-        Date createdAt = Date.valueOf(req.getParameter("created"));
-        Timestamp start = Timestamp.valueOf(req.getParameter("start"));
-        Timestamp end = Timestamp.valueOf(req.getParameter("start"));
-        String status = req.getParameter("status");
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        String name = jsonObject.get("name").getAsString();
+        Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
+        Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
+        Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
+        String status = jsonObject.get("status").getAsString();
         if (name != null && createdAt != null && status != null) {
             courseService.edit(Course.builder()
                     .id(id)
@@ -83,12 +88,13 @@ public class CourseController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        String name = req.getParameter("name");
-        Date createdAt = Date.valueOf(req.getParameter("created"));
-        Timestamp start = Timestamp.valueOf(req.getParameter("start"));
-        Timestamp end = Timestamp.valueOf(req.getParameter("start"));
-        String status = req.getParameter("status");
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        String name = jsonObject.get("name").getAsString();
+        Date createdAt = Date.valueOf(jsonObject.get("createdAt").getAsString());
+        Timestamp start = Timestamp.valueOf(jsonObject.get("startDateTime").getAsString());
+        Timestamp end = Timestamp.valueOf(jsonObject.get("endDateTime").getAsString());
+        String status = jsonObject.get("status").getAsString();
         if (name != null && createdAt != null && status != null) {
             courseService.remove(Course.builder()
                     .id(id)
