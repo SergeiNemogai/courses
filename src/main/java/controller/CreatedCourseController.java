@@ -31,7 +31,12 @@ public class CreatedCourseController extends HttpServlet {
             if (id == null) {
                 createdCourses.addAll(createdCourseService.getAll());
             } else {
-                createdCourses.add(createdCourseService.getById(Long.parseLong(id)));
+                try {
+                    createdCourses.add(createdCourseService.getById(Long.parseLong(id)));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    resp.setStatus(400);
+                }
             }
             writer.println(new JsonConverter().convertToJson(createdCourses, "created_courses"));
         }
@@ -40,33 +45,50 @@ public class CreatedCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long userId = jsonObject.get("userId").getAsLong();
-        Long courseId = jsonObject.get("courseId").getAsLong();
-        createdCourseService.add(CreatedCourse.builder()
-                .userId(userId)
-                .courseId(courseId)
-                .build());
+        try {
+            Long userId = jsonObject.get("userId").getAsLong();
+            Long courseId = jsonObject.get("courseId").getAsLong();
+            createdCourseService.add(CreatedCourse.builder()
+                    .userId(userId)
+                    .courseId(courseId)
+                    .build());
+            resp.setStatus(201);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
+        }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long userId = jsonObject.get("userId").getAsLong();
-        Long courseId = jsonObject.get("courseId").getAsLong();
-        createdCourseService.edit(CreatedCourse.builder()
-                .userId(userId)
-                .courseId(courseId)
-                .build());
+        try {
+            Long userId = jsonObject.get("userId").getAsLong();
+            Long courseId = jsonObject.get("courseId").getAsLong();
+            createdCourseService.edit(CreatedCourse.builder()
+                    .userId(userId)
+                    .courseId(courseId)
+                    .build());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
+        }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long userId = jsonObject.get("userId").getAsLong();
-        Long courseId = jsonObject.get("courseId").getAsLong();
-        createdCourseService.remove(CreatedCourse.builder()
-                .userId(userId)
-                .courseId(courseId)
-                .build());
+        try {
+            Long userId = jsonObject.get("userId").getAsLong();
+            Long courseId = jsonObject.get("courseId").getAsLong();
+            createdCourseService.remove(CreatedCourse.builder()
+                    .userId(userId)
+                    .courseId(courseId)
+                    .build());
+            resp.setStatus(204);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
+        }
     }
 }
