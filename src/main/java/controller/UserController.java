@@ -69,10 +69,11 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        String fname = req.getParameter("fname");
-        String lname = req.getParameter("lname");
-        String role = req.getParameter("role");
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        String fname = jsonObject.get("fname").getAsString();
+        String lname = jsonObject.get("lname").getAsString();
+        String role = jsonObject.get("role").getAsString();
         if (fname != null && lname != null && role != null) {
             userService.edit(User.builder()
                     .id(id)
@@ -85,10 +86,11 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        String fname = req.getParameter("fname");
-        String lname = req.getParameter("lname");
-        String role = req.getParameter("role");
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        String fname = jsonObject.get("fname").getAsString();
+        String lname = jsonObject.get("lname").getAsString();
+        String role = jsonObject.get("role").getAsString();
         if (fname != null && lname != null && role != null) {
             userService.remove(User.builder()
                     .id(id)
