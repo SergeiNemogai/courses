@@ -44,7 +44,12 @@ public class UserController extends HttpServlet {
                     users.addAll(userService.getAll());
                 }
             } else {
-                users.add(userService.getById(Long.parseLong(id)));
+                try {
+                    users.add(userService.getById(Long.parseLong(id)));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    resp.setStatus(400);
+                }
             }
             writer.println(new JsonConverter().convertToJson(users, "users"));
         }
@@ -53,50 +58,67 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long id = jsonObject.get("id").getAsLong();
-        String fname = jsonObject.get("fname").getAsString();
-        String lname = jsonObject.get("lname").getAsString();
-        String role = jsonObject.get("role").getAsString();
-        if (fname != null && lname != null && role != null) {
-            userService.add(User.builder()
-                    .id(id)
-                    .firstName(fname)
-                    .lastName(lname)
-                    .role(role)
-                    .build());
+        try {
+            Long id = jsonObject.get("id").getAsLong();
+            String fname = jsonObject.get("fname").getAsString();
+            String lname = jsonObject.get("lname").getAsString();
+            String role = jsonObject.get("role").getAsString();
+            if (fname != null && lname != null && role != null) {
+                userService.add(User.builder()
+                        .id(id)
+                        .firstName(fname)
+                        .lastName(lname)
+                        .role(role)
+                        .build());
+            }
+            resp.setStatus(201);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long id = jsonObject.get("id").getAsLong();
-        String fname = jsonObject.get("fname").getAsString();
-        String lname = jsonObject.get("lname").getAsString();
-        String role = jsonObject.get("role").getAsString();
-        if (fname != null && lname != null && role != null) {
-            userService.edit(User.builder()
-                    .id(id)
-                    .firstName(fname)
-                    .lastName(lname)
-                    .role(role)
-                    .build());
+        try {
+            Long id = jsonObject.get("id").getAsLong();
+            String fname = jsonObject.get("fname").getAsString();
+            String lname = jsonObject.get("lname").getAsString();
+            String role = jsonObject.get("role").getAsString();
+            if (fname != null && lname != null && role != null) {
+                userService.edit(User.builder()
+                        .id(id)
+                        .firstName(fname)
+                        .lastName(lname)
+                        .role(role)
+                        .build());
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
-        Long id = jsonObject.get("id").getAsLong();
-        String fname = jsonObject.get("fname").getAsString();
-        String lname = jsonObject.get("lname").getAsString();
-        String role = jsonObject.get("role").getAsString();
-        if (fname != null && lname != null && role != null) {
-            userService.remove(User.builder()
-                    .id(id)
-                    .firstName(fname)
-                    .lastName(lname)
-                    .role(role).build());
+        try {
+            Long id = jsonObject.get("id").getAsLong();
+            String fname = jsonObject.get("fname").getAsString();
+            String lname = jsonObject.get("lname").getAsString();
+            String role = jsonObject.get("role").getAsString();
+            if (fname != null && lname != null && role != null) {
+                userService.remove(User.builder()
+                        .id(id)
+                        .firstName(fname)
+                        .lastName(lname)
+                        .role(role).build());
+            }
+            resp.setStatus(204);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.setStatus(400);
         }
     }
 }
