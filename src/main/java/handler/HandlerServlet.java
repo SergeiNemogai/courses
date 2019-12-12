@@ -22,22 +22,46 @@ public class HandlerServlet extends HttpServlet {
             }
         } else {
             controller = (HttpServlet) container.getBean(path.substring(1));
-            controller.service(req, resp);
+            if (controller == null) {
+                resp.setStatus(404);
+            } else {
+                controller.service(req, resp);
+            }
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        controller.service(req, resp);
+        String path = req.getPathInfo();
+        controller = (HttpServlet) container.getBean(path.substring(1));
+        if (controller == null) {
+            resp.setStatus(404);
+        } else {
+            controller.service(req, resp);
+            resp.setStatus(201);
+        }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        controller.service(req, resp);
+        String path = req.getPathInfo();
+        controller = (HttpServlet) container.getBean(path.substring(1));
+        if (controller == null) {
+            resp.setStatus(404);
+        } else {
+            controller.service(req, resp);
+        }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        controller.service(req, resp);
+        String path = req.getPathInfo();
+        controller = (HttpServlet) container.getBean(path.substring(1));
+        if (controller == null) {
+            resp.setStatus(404);
+        } else {
+            controller.service(req, resp);
+            resp.setStatus(204);
+        }
     }
 }
