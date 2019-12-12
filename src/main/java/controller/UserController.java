@@ -1,5 +1,7 @@
 package controller;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import entity.User;
 import service.UserService;
 import util.JsonConverter;
@@ -7,6 +9,7 @@ import util.JsonConverter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -48,11 +51,19 @@ public class UserController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        String fname = req.getParameter("fname");
-        String lname = req.getParameter("lname");
-        String role = req.getParameter("role");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        BufferedReader bufferedReader = req.getReader();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            builder.append(line);
+        }
+        String data = builder.toString();
+        JsonObject jsonObject = new JsonParser().parse(data).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        String fname = jsonObject.get("fname").getAsString();
+        String lname = jsonObject.get("lname").getAsString();
+        String role = jsonObject.get("role").getAsString();
         if (fname != null && lname != null && role != null) {
             userService.add(User.builder()
                     .id(id)
