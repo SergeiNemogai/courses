@@ -1,8 +1,11 @@
 package controller;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import entity.Study;
 import service.StudyService;
 import util.JsonConverter;
+import util.RequestBodyParser;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,9 +39,10 @@ public class StudyController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        Long courseId = Long.parseLong(req.getParameter("course_id"));
-        Long userId = Long.parseLong(req.getParameter("user_id"));
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        Long courseId = jsonObject.get("courseId").getAsLong();
+        Long userId = jsonObject.get("userId").getAsLong();
         studyService.add(Study.builder()
                 .id(id)
                 .courseId(courseId)
@@ -48,9 +52,10 @@ public class StudyController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        Long courseId = Long.parseLong(req.getParameter("course_id"));
-        Long userId = Long.parseLong(req.getParameter("user_id"));
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        Long courseId = jsonObject.get("courseId").getAsLong();
+        Long userId = jsonObject.get("userId").getAsLong();
         studyService.edit(Study.builder()
                 .id(id)
                 .courseId(courseId)
@@ -60,9 +65,10 @@ public class StudyController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        Long courseId = Long.parseLong(req.getParameter("course_id"));
-        Long userId = Long.parseLong(req.getParameter("user_id"));
+        JsonObject jsonObject = new JsonParser().parse(RequestBodyParser.parse(req)).getAsJsonObject();
+        Long id = jsonObject.get("id").getAsLong();
+        Long courseId = jsonObject.get("courseId").getAsLong();
+        Long userId = jsonObject.get("userId").getAsLong();
         studyService.remove(Study.builder()
                 .id(id)
                 .courseId(courseId)
