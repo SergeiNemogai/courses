@@ -22,11 +22,16 @@ public class HandlerServlet extends HttpServlet {
                 writer.println("<h1>" + "Home page. It's OK" + "</h1>");
             }
         } else {
-            controller = (HttpServlet) container.getBean(path.substring(1));
-            if (controller == null) {
+            try {
+                controller = (HttpServlet) container.getBean(path.substring(1));
+                if (controller == null) {
+                    sendNotFound(resp);
+                } else {
+                    controller.service(req, resp);
+                }
+            } catch (ClassCastException e) {
+                e.printStackTrace();
                 sendNotFound(resp);
-            } else {
-                controller.service(req, resp);
             }
         }
     }
@@ -34,33 +39,48 @@ public class HandlerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getPathInfo();
-        controller = (HttpServlet) container.getBean(path.substring(1));
-        if (controller == null) {
+        try {
+            controller = (HttpServlet) container.getBean(path.substring(1));
+            if (controller == null) {
+                sendNotFound(resp);
+            } else {
+                controller.service(req, resp);
+            }
+        } catch (ClassCastException e) {
+            e.printStackTrace();
             sendNotFound(resp);
-        } else {
-            controller.service(req, resp);
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getPathInfo();
-        controller = (HttpServlet) container.getBean(path.substring(1));
-        if (controller == null) {
+        try {
+            controller = (HttpServlet) container.getBean(path.substring(1));
+            if (controller == null) {
+                sendNotFound(resp);
+            } else {
+                controller.service(req, resp);
+            }
+        } catch (ClassCastException e) {
+            e.printStackTrace();
             sendNotFound(resp);
-        } else {
-            controller.service(req, resp);
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getPathInfo();
-        controller = (HttpServlet) container.getBean(path.substring(1));
-        if (controller == null) {
+        try {
+            controller = (HttpServlet) container.getBean(path.substring(1));
+            if (controller == null) {
+                sendNotFound(resp);
+            } else {
+                controller.service(req, resp);
+            }
+        } catch (ClassCastException e) {
+            e.printStackTrace();
             sendNotFound(resp);
-        } else {
-            controller.service(req, resp);
         }
     }
 
