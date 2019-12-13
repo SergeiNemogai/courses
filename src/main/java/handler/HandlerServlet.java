@@ -1,6 +1,7 @@
 package handler;
 
 import container.IoCContainer;
+import util.JsonResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -64,12 +65,9 @@ public class HandlerServlet extends HttpServlet {
     }
 
     private void sendNotFound(HttpServletResponse response) {
-        try (PrintWriter writer = response.getWriter()) {
-            response.setStatus(404);
-            response.setContentType("application/json;charset=UTF-8");
-            writer.println("{ \"error\" : \"Resource you've been searching doesn't exist\" }");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        JsonResponseBody.sendResponseBody(response,
+                404,
+                "error",
+                "Resource you've been searching doesn't exist");
     }
 }
