@@ -35,7 +35,7 @@ public class CreatedCourseController extends HttpServlet {
                     createdCourses.add(createdCourseService.getById(Long.parseLong(id)));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    resp.setStatus(400);
+                    resp.setStatus(422);
                 }
             }
             writer.println(new JsonConverter().convertToJson(createdCourses, "created_courses"));
@@ -55,7 +55,7 @@ public class CreatedCourseController extends HttpServlet {
             resp.setStatus(201);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 
@@ -71,7 +71,7 @@ public class CreatedCourseController extends HttpServlet {
                     .build());
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 
@@ -88,7 +88,7 @@ public class CreatedCourseController extends HttpServlet {
             resp.setStatus(204);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 }

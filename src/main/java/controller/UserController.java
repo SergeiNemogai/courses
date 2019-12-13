@@ -48,7 +48,7 @@ public class UserController extends HttpServlet {
                     users.add(userService.getById(Long.parseLong(id)));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    resp.setStatus(400);
+                    resp.setStatus(422);
                 }
             }
             writer.println(new JsonConverter().convertToJson(users, "users"));
@@ -74,7 +74,7 @@ public class UserController extends HttpServlet {
             resp.setStatus(201);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 
@@ -96,7 +96,7 @@ public class UserController extends HttpServlet {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 
@@ -118,7 +118,7 @@ public class UserController extends HttpServlet {
             resp.setStatus(204);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 }

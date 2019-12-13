@@ -35,7 +35,7 @@ public class StudyController extends HttpServlet {
                     studies.add(studyService.getById(Long.parseLong(id)));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    resp.setStatus(400);
+                    resp.setStatus(422);
                 }
             }
             writer.println(new JsonConverter().convertToJson(studies, "studies"));
@@ -57,7 +57,7 @@ public class StudyController extends HttpServlet {
             resp.setStatus(201);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 
@@ -75,7 +75,7 @@ public class StudyController extends HttpServlet {
                     .build());
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 
@@ -94,7 +94,7 @@ public class StudyController extends HttpServlet {
             resp.setStatus(204);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(400);
+            resp.setStatus(422);
         }
     }
 }
