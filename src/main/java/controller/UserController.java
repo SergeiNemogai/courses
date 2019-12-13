@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import entity.User;
 import service.UserService;
 import util.JsonConverter;
+import util.JsonResponseBody;
 import util.RequestBodyParser;
 
 import javax.servlet.http.HttpServlet;
@@ -48,7 +49,11 @@ public class UserController extends HttpServlet {
                     users.add(userService.getById(Long.parseLong(id)));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    resp.setStatus(422);
+                    JsonResponseBody.sendResponseBody(resp,
+                            422,
+                            "error",
+                            "Course id must be numeric");
+                    return;
                 }
             }
             writer.println(new JsonConverter().convertToJson(users, "users"));
@@ -71,10 +76,16 @@ public class UserController extends HttpServlet {
                         .role(role)
                         .build());
             }
-            resp.setStatus(201);
+            JsonResponseBody.sendResponseBody(resp,
+                    201,
+                    "status",
+                    "User successfully added");
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(422);
+            JsonResponseBody.sendResponseBody(resp,
+                    422,
+                    "error",
+                    "Invalid parameter name or value");
         }
     }
 
@@ -94,9 +105,17 @@ public class UserController extends HttpServlet {
                         .role(role)
                         .build());
             }
+            JsonResponseBody.sendResponseBody(resp,
+                    200,
+                    "status",
+                    "Course successfully updated");
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(422);
+            e.printStackTrace();
+            JsonResponseBody.sendResponseBody(resp,
+                    422,
+                    "error",
+                    "Invalid parameter name or value");
         }
     }
 
@@ -118,7 +137,10 @@ public class UserController extends HttpServlet {
             resp.setStatus(204);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            resp.setStatus(422);
+            JsonResponseBody.sendResponseBody(resp,
+                    422,
+                    "error",
+                    "Invalid parameter name or value");
         }
     }
 }
